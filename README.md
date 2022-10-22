@@ -8,7 +8,6 @@
 <a href="https://anticope.ml/pages/MeteorAddons.html"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet" alt="Verified Addon"></a>
 <img src="https://img.shields.io/badge/Minecraft%20Version-1.19.2-blue" alt="Minecraft Version">
 <a href="https://github.com/RacoonDog/Electron/commits/main"><img src="https://img.shields.io/github/last-commit/RacoonDog/Electron?logo=git" alt="Last commit"></a>
-<img src="https://img.shields.io/github/workflow/status/RacoonDog/Electron/Java%20CI%20with%20Gradle?logo=github" alt="build status">
 <img src="https://img.shields.io/github/languages/code-size/RacoonDog/Electron" alt="Code Size">
 <img src="https://img.shields.io/github/repo-size/RacoonDog/Electron" alt="Repo Size">
 <img src="https://img.shields.io/github/issues/RacoonDog/Electron" alt="Issues">
