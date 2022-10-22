@@ -12,7 +12,7 @@
 <img src="https://img.shields.io/github/languages/code-size/RacoonDog/Electron" alt="Code Size">
 <img src="https://img.shields.io/github/repo-size/RacoonDog/Electron" alt="Repo Size">
 <img src="https://img.shields.io/github/issues/RacoonDog/Electron" alt="Issues">
-<img src="https://img.shields.io/github/stars/AntiCope/RacoonDog/Electron" alt="Stars">
+<img src="https://img.shields.io/github/stars/RacoonDog/Electron" alt="Stars">
 </div>
 
 # How to use
