@@ -1,6 +1,6 @@
 <div align="center">
   <!-- Logo and Title -->
-  <img src="/src/main/resources/assets/electron/icon.png" alt="logo" width="20%"/>
+  <img src="/src/main/resources/assets/electron/icon.png" alt="logo" width="30%"/>
   <h1>Electron</h1>
   <p>A performance optimization addon for Meteor Client addon which works to speed up launching the game and optimize the tick loop.</p>
 
