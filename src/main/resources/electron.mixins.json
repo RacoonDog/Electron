@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "package": "io.github.racoondog.electron.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "BlockIteratorMixin",
+    "CommandsMixin",
+    "CompilerMixin",
+    "GuiThemesMixin",
+    "HudMixin",
+    "ISystems",
+    "MeteorClientMixin",
+    "ModulesMixin",
+    "ReflectInitMixin",
+    "SystemsMixin",
+    "TabsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

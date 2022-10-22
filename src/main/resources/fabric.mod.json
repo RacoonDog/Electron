@@ -1,27 +1,28 @@
 {
   "schemaVersion": 1,
-  "id": "addon-template",
+  "id": "electron",
   "version": "${version}",
-  "name": "Addon Template",
-  "description": "An addon template for the Meteor addons.",
-  "authors": [
-    "seasnail"
-  ],
+  "name": "Electron",
+  "description": "Meteor Client Performance Optimizations.",
+  "authors": [ "Crosby" ],
   "contact": {
-    "repo": "https://github.com/MeteorDevelopment/meteor-addon-template"
+    "repo": "https://github.com/RacoonDog/Electron",
+    "issues": "https://github.com/RacoonDog/Electron/issues",
+    "sources": "https://github.com/RacoonDog/Electron"
   },
-  "icon": "assets/template/icon.png",
+  "license": "ARR",
+  "icon": "assets/electron/icon.png",
   "environment": "client",
   "entrypoints": {
     "meteor": [
-      "com.example.addon.Addon"
+      "io.github.racoondog.electron.Electron"
     ]
   },
   "mixins": [
-    "addon.mixins.json"
+    "electron.mixins.json"
   ],
   "custom": {
-    "meteor-client:color": "225,25,25"
+    "meteor-client:color": "255,201,58"
   },
   "depends": {
     "java": ">=17",
