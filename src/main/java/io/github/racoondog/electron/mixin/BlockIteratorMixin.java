@@ -26,18 +26,28 @@ import java.util.function.BiConsumer;
 @Environment(EnvType.CLIENT)
 @Mixin(value = BlockIterator.class, remap = false)
 public abstract class BlockIteratorMixin {
-    @Shadow
-    @Final
-    private static List<Runnable> afterCallbacks;
+    @Shadow @Final private static List<Runnable> afterCallbacks;
     @Unique private static long startTime;
 
+    /**
+     * Disables old BlockIterator and enables dev benchmarking.
+     *
+     * @author Crosby
+     */
     @Inject(method = "onTick", at = @At("HEAD"), cancellable = true)
     private static void startTimer(TickEvent.Pre event, CallbackInfo ci) {
         if (ElectronSystem.get().chunkBlockIterator.get()) ci.cancel();
-        else if (FabricLoader.getInstance().isDevelopmentEnvironment() && afterCallbacks.isEmpty() && Modules.get().get(BlockIterators.class).isActive()) ci.cancel(); //Hack them together
-        if (FabricLoader.getInstance().isDevelopmentEnvironment()) startTime = System.nanoTime();
+        else if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+            if (afterCallbacks.isEmpty()) ci.cancel();
+            startTime = System.nanoTime();
+        }
     }
 
+    /**
+     * Enables dev benchmarking.
+     *
+     * @author Crosby
+     */
     @Inject(method = "onTick", at = @At("TAIL"))
     private static void endTimer(TickEvent.Pre event, CallbackInfo ci) {
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
@@ -46,18 +56,33 @@ public abstract class BlockIteratorMixin {
         }
     }
 
+    /**
+     * Disables old BlockIterator.
+     *
+     * @author Crosby
+     */
     @Inject(method = "register", at = @At("HEAD"))
-    private static void injectRegister(int horizontalRadius, int verticalRadius, BiConsumer<BlockPos, BlockState> function, CallbackInfo ci) {
+    private static void replaceRegister(int horizontalRadius, int verticalRadius, BiConsumer<BlockPos, BlockState> function, CallbackInfo ci) {
         if (ElectronSystem.get().chunkBlockIterator.get()) ChunkBlockIterator.register(horizontalRadius, verticalRadius, function);
     }
 
+    /**
+     * Disables old BlockIterator.
+     *
+     * @author Crosby
+     */
     @Inject(method = "disableCurrent", at = @At("HEAD"))
-    private static void injectDisableCurrent(CallbackInfo ci) {
+    private static void replaceDisableCurrent(CallbackInfo ci) {
         if (ElectronSystem.get().chunkBlockIterator.get()) ChunkBlockIterator.disableCurrent();
     }
 
+    /**
+     * Disables old BlockIterator.
+     *
+     * @author Crosby
+     */
     @Inject(method = "after", at = @At("HEAD"))
-    private static void injectAfter(Runnable callback, CallbackInfo ci) {
+    private static void replaceAfter(Runnable callback, CallbackInfo ci) {
         if (ElectronSystem.get().chunkBlockIterator.get()) ChunkBlockIterator.after(callback);
     }
 }

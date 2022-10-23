@@ -12,6 +12,7 @@
 <img src="https://img.shields.io/github/repo-size/RacoonDog/Electron" alt="Repo Size">
 <img src="https://img.shields.io/github/issues/RacoonDog/Electron" alt="Issues">
 <img src="https://img.shields.io/github/stars/RacoonDog/Electron" alt="Stars">
+<img src="https://img.shields.io/github/downloads/RacoonDog/Electron/total" alt="Downloads">
 </div>
 
 # How to use
@@ -26,7 +27,7 @@
 - `Async Addon Init` : Initializes multiple addons at the same time. Reduces game launch time by ~100-200 ms with 5 addons and 4 threads. 
     - `Addon Init Threads` : Changes the amount of threads allocated to asynchronous addon initialization.
 - `Starscript Optimizations` : Enables Starscript optimizations. This also enables static constant folding and propagation.
-    - `Null On Error` : Makes the Starscript Optimizer replace an erroring instruction `null` instead of skipping it.
+    - `Null On Error` : Makes the Starscript Optimizer replace an erroring instruction with `null` instead of skipping it.
     - `Ignore Sections` : Makes the Starscript Optimizer delete section instructions. Only use if you know what you are doing.
     - `Null Propagation` : Makes the Starscript Optimizer replace functions which have `null` parameters with `null` instructions. This is only really useful if `Null On Error` is activated. This has the side effect of breaking functions which take `null` as parameters.
 

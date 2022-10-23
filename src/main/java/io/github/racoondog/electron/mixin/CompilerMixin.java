@@ -17,6 +17,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class CompilerMixin {
     @Shadow protected abstract void compile(Expr expr);
 
+    /**
+     * Tries to solve Unary operations.
+     *
+     * @author Crosby
+     */
     @Inject(method = "visitUnary", at = @At("HEAD"), cancellable = true)
     private void optimizeUnaryOperation(Expr.Unary expr, CallbackInfo ci) {
         if (ElectronSystem.get().starscript.get() && StarscriptUtils.isSolveable(expr)) {
@@ -25,6 +30,11 @@ public abstract class CompilerMixin {
         }
     }
 
+    /**
+     * Tries to solve Binary operations.
+     *
+     * @author Crosby
+     */
     @Inject(method = "visitBinary", at = @At("HEAD"), cancellable = true)
     private void optimizeBinaryOperation(Expr.Binary expr, CallbackInfo ci) {
         if (ElectronSystem.get().starscript.get() && StarscriptUtils.isSolveable(expr)) {
@@ -33,6 +43,11 @@ public abstract class CompilerMixin {
         }
     }
 
+    /**
+     * Tries to solve Logical operations.
+     *
+     * @author Crosby
+     */
     @Inject(method = "visitLogical", at = @At("HEAD"), cancellable = true)
     private void optimizeLogicalOperation(Expr.Logical expr, CallbackInfo ci) {
         if (ElectronSystem.get().starscript.get() && StarscriptUtils.isSolveable(expr)) {
@@ -41,6 +56,11 @@ public abstract class CompilerMixin {
         }
     }
 
+    /**
+     * Tries to solve Conditional operations.
+     *
+     * @author Crosby
+     */
     @Inject(method = "visitConditional", at = @At("HEAD"), cancellable = true)
     private void optimizeConditionalOperation(Expr.Conditional expr, CallbackInfo ci) {
         if (ElectronSystem.get().starscript.get() && StarscriptUtils.isSolveable(expr)) {
@@ -49,6 +69,24 @@ public abstract class CompilerMixin {
         }
     }
 
+    /**
+     * Tries to propagate nulls on function calls.
+     *
+     * @author Crosby
+     */
+    @Inject(method = "visitCall", at = @At("HEAD"), cancellable = true)
+    private void propagateCallNulls(Expr.Call expr, CallbackInfo ci) {
+        if (ElectronSystem.get().starscript.get() && StarscriptUtils.isCallSolveable(expr)) {
+            compile(StarscriptUtils.solveCall(expr));
+            ci.cancel();
+        }
+    }
+
+    /**
+     * Removes Sections if applicable.
+     *
+     * @author Crosby
+     */
     @Inject(method = "visitSection", at = @At("HEAD"), cancellable = true)
     private void ignoreSections(Expr.Section expr, CallbackInfo ci) {
         if (StarscriptUtils.ignoreSections()) {

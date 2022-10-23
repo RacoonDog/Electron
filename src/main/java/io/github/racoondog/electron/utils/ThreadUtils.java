@@ -18,16 +18,18 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Environment(EnvType.CLIENT)
 public final class ThreadUtils {
     public static boolean initLock = false;
-    public static final List<HudElementInfo<?>> HEI_QUEUE = ObjectLists.synchronize(new ObjectArrayList<>());
-    public static final List<Module> MODULE_QUEUE = ObjectLists.synchronize(new ObjectArrayList<>());
-    public static final List<Command> COMMAND_QUEUE = ObjectLists.synchronize(new ObjectArrayList<>());
-    public static final List<System<?>> SYSTEM_QUEUE = ObjectLists.synchronize(new ObjectArrayList<>());
-    public static final List<GuiTheme> THEME_QUEUE = ObjectLists.synchronize(new ObjectArrayList<>());
-    public static final List<Tab> TAB_QUEUE = ObjectLists.synchronize(new ObjectArrayList<>());
+    public static final Queue<HudElementInfo<?>> HEI_QUEUE = new ConcurrentLinkedQueue<>();
+    public static final Queue<Module> MODULE_QUEUE = new ConcurrentLinkedQueue<>();
+    public static final Queue<Command> COMMAND_QUEUE = new ConcurrentLinkedQueue<>();
+    public static final Queue<System<?>> SYSTEM_QUEUE = new ConcurrentLinkedQueue<>();
+    public static final Queue<GuiTheme> THEME_QUEUE = new ConcurrentLinkedQueue<>();
+    public static final Queue<Tab> TAB_QUEUE = new ConcurrentLinkedQueue<>();
 
     public static void registerObjects() {
         HEI_QUEUE.forEach(info -> Hud.get().register(info));
@@ -39,13 +41,19 @@ public final class ThreadUtils {
         COMMAND_QUEUE.forEach(command -> Commands.get().add(command));
         COMMAND_QUEUE.clear();
 
-        SYSTEM_QUEUE.forEach(ISystems::invokeAdd);
-        SYSTEM_QUEUE.clear();
+        if (!SYSTEM_QUEUE.isEmpty()) {
+            SYSTEM_QUEUE.forEach(ISystems::invokeAdd);
+            SYSTEM_QUEUE.clear();
+        }
 
-        THEME_QUEUE.forEach(GuiThemes::add);
-        THEME_QUEUE.clear();
+        if (!THEME_QUEUE.isEmpty()) {
+            THEME_QUEUE.forEach(GuiThemes::add);
+            THEME_QUEUE.clear();
+        }
 
-        TAB_QUEUE.forEach(Tabs::add);
-        TAB_QUEUE.clear();
+        if (!TAB_QUEUE.isEmpty()) {
+            TAB_QUEUE.forEach(Tabs::add);
+            TAB_QUEUE.clear();
+        }
     }
 }
