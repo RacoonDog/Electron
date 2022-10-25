@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = Hud.class, remap = false)
 public abstract class HudMixin {
     /**
-     * Ensures thread-safety
+     * Ensures thread-safety.
      *
      * @author Crosby
      */

@@ -2,10 +2,12 @@
   "required": true,
   "package": "io.github.racoondog.electron.mixin",
   "compatibilityLevel": "JAVA_17",
+  "plugin": "io.github.racoondog.electron.dev.MixinPlugin",
   "client": [
     "BlockIteratorMixin",
     "CommandsMixin",
     "CompilerMixin",
+    "EntityUtilsMixin",
     "GuiThemesMixin",
     "HudMixin",
     "ISystems",
@@ -13,7 +15,9 @@
     "ModulesMixin",
     "ReflectInitMixin",
     "SystemsMixin",
-    "TabsMixin"
+    "TabsMixin",
+    "UtilsMixin",
+    "dev.ReflectInitMixin"
   ],
   "injectors": {
     "defaultRequire": 1

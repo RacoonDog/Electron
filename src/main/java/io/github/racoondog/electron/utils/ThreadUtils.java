@@ -1,8 +1,6 @@
 package io.github.racoondog.electron.utils;
 
 import io.github.racoondog.electron.mixin.ISystems;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import it.unimi.dsi.fastutil.objects.ObjectLists;
 import meteordevelopment.meteorclient.gui.GuiTheme;
 import meteordevelopment.meteorclient.gui.GuiThemes;
 import meteordevelopment.meteorclient.gui.tabs.Tab;
@@ -17,7 +15,6 @@ import meteordevelopment.meteorclient.systems.modules.Modules;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 

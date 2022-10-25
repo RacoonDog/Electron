@@ -16,7 +16,7 @@ import java.util.function.Consumer;
 @Mixin(value = MeteorClient.class, remap = false)
 public abstract class MeteorClientMixin {
     /**
-     * Replaces normal sequential addon initialization with multithreaded implementation
+     * Replaces normal sequential addon initialization with multithreaded implementation.
      *
      * @author Crosby
      */

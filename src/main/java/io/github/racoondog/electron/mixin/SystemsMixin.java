@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = Systems.class, remap = false)
 public abstract class SystemsMixin {
     /**
-     * Ensures thread-safety
+     * Ensures thread-safety.
      *
      * @author Crosby
      */

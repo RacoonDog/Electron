@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = Tabs.class, remap = false)
 public abstract class TabsMixin {
     /**
-     * Ensures thread-safety
+     * Ensures thread-safety.
      *
      * @author Crosby
      */
