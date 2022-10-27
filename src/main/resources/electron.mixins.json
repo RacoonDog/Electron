@@ -16,8 +16,7 @@
     "ReflectInitMixin",
     "SystemsMixin",
     "TabsMixin",
-    "UtilsMixin",
-    "dev.ReflectInitMixin"
+    "UtilsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

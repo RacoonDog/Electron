@@ -2,6 +2,7 @@ package io.github.racoondog.electron;
 
 import io.github.racoondog.electron.blockiterator.ChunkBlockIterator;
 import io.github.racoondog.electron.mixin.ISystems;
+import io.github.racoondog.meteorsharedaddonutils.features.ColoredWindow;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.addons.AddonManager;
 import meteordevelopment.meteorclient.gui.GuiTheme;
@@ -155,7 +156,7 @@ public final class ElectronSystem extends System<ElectronSystem> {
         private ElectronScreen(GuiTheme theme, Tab tab) {
             super(theme, tab);
 
-            window = super.add(new ElectronWindow(null, tab.name)).center().widget();
+            window = super.add(new ColoredWindow(null, tab.name, 255, 201, 58)).center().widget();
 
             settings = ElectronSystem.get().settings;
             settings.onActivated();
@@ -184,25 +185,6 @@ public final class ElectronSystem extends System<ElectronSystem> {
         @Override
         public boolean fromClipboard() {
             return NbtUtils.fromClipboard(ElectronSystem.get());
-        }
-    }
-
-    //Fuck you I'm extra -Crosby
-    private static final class ElectronWindow extends WMeteorWindow {
-        private static final SettingColor accentColor = new SettingColor(255, 201, 58);
-
-        private ElectronWindow(WWidget icon, String title) {
-            super(icon, title);
-        }
-
-        @Override
-        protected WHeader header(WWidget icon) {
-            return new WHeader(icon) {
-                @Override
-                protected void onRender(GuiRenderer renderer, double mouseX, double mouseY, double delta) {
-                    renderer.quad(this, accentColor);
-                }
-            };
         }
     }
 }

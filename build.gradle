@@ -31,6 +31,12 @@ dependencies {
     modImplementation "meteordevelopment:meteor-client:${project.meteor_version}"
 
     // Libraries
+    modImplementation("com.github.RacoonDog:MeteorSharedAddonUtils:main-SNAPSHOT") {
+        transitive = false
+    }
+    include("com.github.RacoonDog:MeteorSharedAddonUtils:main-SNAPSHOT") {
+        transitive = false
+    }
     //implementation include('com.github.Chocohead:Fabric-ASM:v2.3') @todo implement
 }
 

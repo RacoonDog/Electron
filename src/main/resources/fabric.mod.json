@@ -22,11 +22,16 @@
     "electron.mixins.json"
   ],
   "custom": {
-    "meteor-client:color": "255,201,58"
+    "meteor-client:color": "255,201,58",
+    "modmenu": {
+      "badges": [ "library", "meteor" ]
+    }
   },
   "depends": {
     "java": ">=17",
+    "fabricloader": ">=0.12",
     "minecraft": ">=${mc_version}",
+    "meteor-shared-addon-utils": "*",
     "meteor-client": "*"
   }
 }
