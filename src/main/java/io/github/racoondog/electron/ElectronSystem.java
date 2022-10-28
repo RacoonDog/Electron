@@ -1,16 +1,14 @@
 package io.github.racoondog.electron;
 
 import io.github.racoondog.electron.blockiterator.ChunkBlockIterator;
-import io.github.racoondog.electron.mixin.ISystems;
 import io.github.racoondog.meteorsharedaddonutils.features.ColoredWindow;
+import io.github.racoondog.meteorsharedaddonutils.mixin.ISystems;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.addons.AddonManager;
 import meteordevelopment.meteorclient.gui.GuiTheme;
-import meteordevelopment.meteorclient.gui.renderer.GuiRenderer;
 import meteordevelopment.meteorclient.gui.tabs.Tab;
 import meteordevelopment.meteorclient.gui.tabs.TabScreen;
 import meteordevelopment.meteorclient.gui.tabs.Tabs;
-import meteordevelopment.meteorclient.gui.themes.meteor.widgets.WMeteorWindow;
 import meteordevelopment.meteorclient.gui.utils.Cell;
 import meteordevelopment.meteorclient.gui.widgets.WWidget;
 import meteordevelopment.meteorclient.gui.widgets.containers.WWindow;
@@ -19,7 +17,6 @@ import meteordevelopment.meteorclient.systems.System;
 import meteordevelopment.meteorclient.systems.Systems;
 import meteordevelopment.meteorclient.utils.PreInit;
 import meteordevelopment.meteorclient.utils.misc.NbtUtils;
-import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.meteorclient.utils.world.BlockIterator;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -102,7 +99,7 @@ public final class ElectronSystem extends System<ElectronSystem> {
 
         if (chunkBlockIterator.get()) {
             MeteorClient.EVENT_BUS.subscribe(ChunkBlockIterator.class);
-            //MeteorClient.EVENT_BUS.unsubscribe(BlockIterator.class);
+            MeteorClient.EVENT_BUS.unsubscribe(BlockIterator.class);
         }
     }
 
