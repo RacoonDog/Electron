@@ -21,6 +21,10 @@ repositories {
         name = "jitpack"
         url = "https://jitpack.io"
     }
+    maven {
+        name = "jfronny"
+        url = "https://gitlab.com/api/v4/projects/25805200/packages/maven"
+    }
 }
 
 dependencies {
@@ -37,6 +41,8 @@ dependencies {
     include("com.github.RacoonDog:MeteorSharedAddonUtils:main-SNAPSHOT") {
         transitive = false
     }
+
+    modLocalRuntime("io.gitlab.jfronny.libjf:libjf-devutil-v0:+")
     //implementation include('com.github.Chocohead:Fabric-ASM:v2.3') @todo implement
 }
 

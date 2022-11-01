@@ -27,8 +27,9 @@ public abstract class EntityUtilsMixin {
         if (entity.getBlockPos().getY() < mc.world.getBottomY()) return false;
 
         WorldChunk chunk = mc.world.getChunk(ChunkSectionPos.getSectionCoord(entity.getBlockPos().getX()), ChunkSectionPos.getSectionCoord(entity.getBlockPos().getZ()));
+        int minY = Math.max(mc.world.getBottomY(), entity.getBlockY() - 64);
 
-        for (int y = entity.getBlockY(); y < entity.getBlockY() - 64; y--) {
+        for (int y = entity.getBlockY(); y < minY; y--) {
             if (y < mc.world.getBottomY()) break;
 
             BlockState state = ChunkUtils.getChunkBlockState(chunk, entity.getBlockX(), y, entity.getBlockZ());

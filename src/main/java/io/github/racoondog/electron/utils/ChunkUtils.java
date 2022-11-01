@@ -9,9 +9,6 @@ import net.minecraft.util.crash.CrashReport;
 import net.minecraft.util.crash.CrashReportSection;
 import net.minecraft.world.chunk.ChunkSection;
 import net.minecraft.world.chunk.WorldChunk;
-import net.minecraft.world.gen.chunk.DebugChunkGenerator;
-
-import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 @Environment(EnvType.CLIENT)
 public final class ChunkUtils {
@@ -21,15 +18,6 @@ public final class ChunkUtils {
      * @author Crosby
      */
     public static BlockState getChunkBlockState(WorldChunk chunk, int x, int y, int z) {
-        if (mc.world.isDebugWorld()) {
-            if (y == 60) {
-                return Blocks.BARRIER.getDefaultState();
-            }
-            if (y == 70) {
-                return DebugChunkGenerator.getBlockState(x, z);
-            }
-            return Blocks.AIR.getDefaultState();
-        }
         try {
             ChunkSection chunkSection;
             int l = chunk.getSectionIndex(y);

@@ -51,7 +51,7 @@ public final class AddonInitThreading {
         }
 
         EXECUTOR.shutdown(); //Prevent executing additional tasks
-        boolean success = EXECUTOR.awaitTermination(4, TimeUnit.MINUTES); //I cant believe I have to put a comment here for this (*ahem* ghosttypes), but this line does not, in fact, act like a Thread.sleep() for 4 minutes, it waits for the executors tasks to finish
+        boolean success = EXECUTOR.awaitTermination(4, TimeUnit.MINUTES); //Wait for addon initialization to finish
 
         //post init
         ThreadUtils.initLock = false;

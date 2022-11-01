@@ -10,7 +10,6 @@
     "EntityUtilsMixin",
     "GuiThemesMixin",
     "HudMixin",
-    "ISystems",
     "MeteorClientMixin",
     "ModulesMixin",
     "ReflectInitMixin",
