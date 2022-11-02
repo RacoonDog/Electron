@@ -24,7 +24,7 @@ public abstract class BlockIteratorMixin {
      * @author Crosby
      */
     @Inject(method = "onTick", at = @At("HEAD"), cancellable = true)
-    private static void startTimer(TickEvent.Pre event, CallbackInfo ci) {
+    private static void removeTick(TickEvent.Pre event, CallbackInfo ci) {
         if (ElectronSystem.get().chunkBlockIterator.get()) ci.cancel();
     }
 
@@ -43,9 +43,12 @@ public abstract class BlockIteratorMixin {
      *
      * @author Crosby
      */
-    @Inject(method = "disableCurrent", at = @At("HEAD"))
+    @Inject(method = "disableCurrent", at = @At("HEAD"), cancellable = true)
     private static void replaceDisableCurrent(CallbackInfo ci) {
-        if (ElectronSystem.get().chunkBlockIterator.get()) ChunkBlockIterator.disableCurrent();
+        if (ElectronSystem.get().chunkBlockIterator.get()) {
+            ChunkBlockIterator.disableCurrent();
+            ci.cancel();
+        }
     }
 
     /**
@@ -53,8 +56,11 @@ public abstract class BlockIteratorMixin {
      *
      * @author Crosby
      */
-    @Inject(method = "after", at = @At("HEAD"))
+    @Inject(method = "after", at = @At("HEAD"), cancellable = true)
     private static void replaceAfter(Runnable callback, CallbackInfo ci) {
-        if (ElectronSystem.get().chunkBlockIterator.get()) ChunkBlockIterator.after(callback);
+        if (ElectronSystem.get().chunkBlockIterator.get()) {
+            ChunkBlockIterator.after(callback);
+            ci.cancel();
+        }
     }
 }

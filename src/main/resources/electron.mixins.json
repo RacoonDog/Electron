@@ -5,16 +5,16 @@
   "plugin": "io.github.racoondog.electron.dev.MixinPlugin",
   "client": [
     "BlockIteratorMixin",
-    "CommandsMixin",
+    "asyncaddoninit.CommandsMixin",
     "CompilerMixin",
     "EntityUtilsMixin",
-    "GuiThemesMixin",
-    "HudMixin",
-    "MeteorClientMixin",
-    "ModulesMixin",
+    "asyncaddoninit.GuiThemesMixin",
+    "asyncaddoninit.HudMixin",
+    "asyncaddoninit.MeteorClientMixin",
+    "asyncaddoninit.ModulesMixin",
     "ReflectInitMixin",
-    "SystemsMixin",
-    "TabsMixin",
+    "asyncaddoninit.SystemsMixin",
+    "asyncaddoninit.TabsMixin",
     "UtilsMixin"
   ],
   "injectors": {

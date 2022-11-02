@@ -31,9 +31,7 @@ public class Benchmark {
         stopWatch.start();
         runnable.run();
         stopWatch.stop();
-        results.addFirst(stopWatch.getNanoTime());
-        if (results.size() > size) results.removeFirst();
-        mean = -1; //reset mean
+        addResult(stopWatch.getNanoTime());
     }
 
     public LongList getResults() {
@@ -92,6 +90,16 @@ public class Benchmark {
         if (results.size() >= 20) Electron.LOG.info("95th Percentile: {} ns", this.getPercentile(95));
         if (results.size() >= 100) Electron.LOG.info("99th Percentile: {} ns", this.getPercentile(99));
         Electron.LOG.info("Raw Values: {}", resultsToStr(this.getResults()));
+    }
+
+    public StopWatch getStopWatch() {
+        return this.stopWatch;
+    }
+
+    public void addResult(long result) {
+        results.addFirst(result);
+        if (results.size() > size) results.removeFirst();
+        mean = -1; //reset mean
     }
 
     private static String resultsToStr(LongList list) {

@@ -1,6 +1,7 @@
 # Benchmarks
 
-## `EntityUtils.isAboveWater()`
+## `EntityUtils.isAboveWater()` ~22.8% Faster
+
 ### Optimizations
 - Cache `WorldChunk` object
 - Mutate y coordinate instead of `BlockPos.Mutable` object
@@ -22,3 +23,26 @@ Median: 8600 ns
 90th Percentile: 14500 ns  
 95th Percentile: 15300 ns  
 99th Percentile: 16600 ns  
+
+## `ChunkBlockIterator` ~13.9% Faster
+
+### Optimizations
+- Cache `WorldChunk` object
+- Mutate coordinates instead of `BlockPos.Mutable` object
+- Use BlockPos-less `WorldChunk.getBlockState()` implementation
+
+### Default Meteor implementation results
+Standard Deviation: 1190.7 μs  
+Mean: 44697 μs  
+Median: 40253 μs  
+90th Percentile: 69443 μs  
+95th Percentile: 72395 μs  
+99th Percentile: 79192 μs
+
+### Electron implementation results
+Standard Deviation: 1628.8 μs  
+Mean: 38475 μs  
+Median: 33948 μs  
+90th Percentile: 56249 μs  
+95th Percentile: 80313 μs  
+99th Percentile: 88086 μs  

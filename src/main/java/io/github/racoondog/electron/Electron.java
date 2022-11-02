@@ -1,7 +1,6 @@
 package io.github.racoondog.electron;
 
 import com.mojang.logging.LogUtils;
-import io.github.racoondog.electron.dev.BlockIterators;
 import meteordevelopment.meteorclient.addons.GithubRepo;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.systems.modules.Category;
@@ -18,9 +17,6 @@ public final class Electron extends MeteorAddon {
 
     @Override
     public void onInitialize() {
-        if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
-            Modules.get().add( new BlockIterators() );
-        }
     }
 
     @Override

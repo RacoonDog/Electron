@@ -1,8 +1,8 @@
-package io.github.racoondog.electron.mixin;
+package io.github.racoondog.electron.mixin.asyncaddoninit;
 
 import io.github.racoondog.electron.utils.ThreadUtils;
-import meteordevelopment.meteorclient.systems.modules.Module;
-import meteordevelopment.meteorclient.systems.modules.Modules;
+import meteordevelopment.meteorclient.gui.GuiTheme;
+import meteordevelopment.meteorclient.gui.GuiThemes;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import org.spongepowered.asm.mixin.Mixin;
@@ -11,17 +11,17 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = Modules.class, remap = false)
-public abstract class ModulesMixin {
+@Mixin(value = GuiThemes.class, remap = false)
+public abstract class GuiThemesMixin {
     /**
      * Ensures thread-safety.
      *
      * @author Crosby
      */
     @Inject(method = "add", at = @At("HEAD"), cancellable = true)
-    private void addModuleToQueue(Module module, CallbackInfo ci) {
+    private static void addThemeToQueue(GuiTheme theme, CallbackInfo ci) {
         if (ThreadUtils.initLock) {
-            ThreadUtils.MODULE_QUEUE.add(module);
+            ThreadUtils.THEME_QUEUE.add(theme);
             ci.cancel();
         }
     }

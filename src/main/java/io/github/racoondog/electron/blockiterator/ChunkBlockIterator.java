@@ -1,16 +1,12 @@
 package io.github.racoondog.electron.blockiterator;
 
-import io.github.racoondog.electron.dev.BlockIterators;
 import meteordevelopment.meteorclient.events.world.TickEvent;
-import meteordevelopment.meteorclient.gui.widgets.WLabel;
-import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.utils.misc.Pool;
 import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.orbit.EventPriority;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -39,8 +35,7 @@ public final class ChunkBlockIterator {
 
     @EventHandler(priority = EventPriority.LOWEST - 1)
     private static void onTick(TickEvent.Pre event) {
-        if (!Utils.canUpdate() || mc.world.isDebugWorld() || (callbacks.isEmpty() && afterCallbacks.isEmpty())) return;
-        long startTime = System.nanoTime();
+        if (!Utils.canUpdate() || mc.world.isDebugWorld() || (hRadius == 0 && vRadius == 0)) return;
 
         int px = mc.player.getBlockX();
         int py = mc.player.getBlockY();
@@ -77,17 +72,16 @@ public final class ChunkBlockIterator {
 
                     int ey = y & 15;
                     blockPos.setY(y);
+                    int dy = Math.abs(y - py);
 
                     for (int x = chunkX1; x <= chunkX2; x++) {
                         int ex = x & 15;
                         blockPos.setX(x);
+                        int dx = Math.abs(x - px);
 
                         for (int z = chunkZ1; z <= chunkZ2; z++) {
                             blockPos.setZ(z);
                             BlockState blockState = section.getBlockState(ex, ey, z & 15);
-
-                            int dx = Math.abs(x - px);
-                            int dy = Math.abs(y - py);
                             int dz = Math.abs(z - pz);
 
                             for (Iterator<Callback> it = callbacks.iterator(); it.hasNext(); ) {
@@ -116,11 +110,6 @@ public final class ChunkBlockIterator {
 
         for (Runnable callback : afterCallbacks) callback.run();
         afterCallbacks.clear();
-
-        if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
-            WLabel label = Modules.get().get(BlockIterators.class).cBITime;
-            if (label != null) label.set("%s microseconds".formatted((System.nanoTime() - startTime) / 1000));
-        }
     }
 
     public static void register(int horizontalRadius, int verticalRadius, BiConsumer<BlockPos, BlockState> function) {
