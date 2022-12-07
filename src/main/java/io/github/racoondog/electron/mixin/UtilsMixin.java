@@ -1,41 +1,14 @@
 package io.github.racoondog.electron.mixin;
 
-import meteordevelopment.meteorclient.systems.modules.render.BetterTooltips;
 import meteordevelopment.meteorclient.utils.Utils;
-import meteordevelopment.meteorclient.utils.render.color.Color;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ShulkerBoxBlock;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DyeColor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 @Environment(EnvType.CLIENT)
 @Mixin(value = Utils.class, remap = false)
 public abstract class UtilsMixin {
-    /**
-     * @author Crosby
-     * @reason Rewritten to use pattern variables and remove duplicate type casting.
-     */
-    @Overwrite
-    public static Color getShulkerColor(ItemStack shulkerItem) {
-        if (shulkerItem.getItem() instanceof BlockItem blockItem) {
-            Block block = blockItem.getBlock();
-            if (block == Blocks.ENDER_CHEST) return BetterTooltips.ECHEST_COLOR;
-            if (block instanceof ShulkerBoxBlock shulkerBlock) {
-                DyeColor dye = shulkerBlock.getColor();
-                if (dye == null) return Utils.WHITE;
-                final float[] colors = dye.getColorComponents();
-                return new Color(colors[0], colors[1], colors[2], 1f);
-            }
-        }
-        return Utils.WHITE;
-    }
-
     /**
      * @author Crosby
      * @reason Remove unused loop iterations and redundant matrix population.

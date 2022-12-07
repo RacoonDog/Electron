@@ -1,6 +1,6 @@
 package io.github.racoondog.electron.utils;
 
-import io.github.racoondog.meteorsharedaddonutils.mixin.ISystems;
+import io.github.racoondog.meteorsharedaddonutils.mixin.mixin.ISystems;
 import meteordevelopment.meteorclient.gui.GuiTheme;
 import meteordevelopment.meteorclient.gui.GuiThemes;
 import meteordevelopment.meteorclient.gui.tabs.Tab;

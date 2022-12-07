@@ -18,8 +18,8 @@ repositories {
         url = "https://maven.meteordev.org/snapshots"
     }
     maven {
-        name = "jitpack"
-        url = "https://jitpack.io"
+        name = "msau-repsy"
+        url = "https://repo.repsy.io/mvn/ggcrosby/meteorsharedaddonutils"
     }
     maven {
         name = "jfronny"
@@ -35,10 +35,10 @@ dependencies {
     modImplementation "meteordevelopment:meteor-client:${project.meteor_version}"
 
     // Libraries
-    modImplementation("com.github.RacoonDog:MeteorSharedAddonUtils:main-SNAPSHOT") {
+    modImplementation("io.github.racoondog:MeteorSharedAddonUtils:${project.msau_version}") {
         transitive = false
     }
-    include("com.github.RacoonDog:MeteorSharedAddonUtils:main-SNAPSHOT") {
+    include("io.github.racoondog:MeteorSharedAddonUtils:${project.msau_version}") {
         transitive = false
     }
 

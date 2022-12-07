@@ -2,7 +2,7 @@ package io.github.racoondog.electron;
 
 import io.github.racoondog.electron.blockiterator.ChunkBlockIterator;
 import io.github.racoondog.meteorsharedaddonutils.features.ColoredWindow;
-import io.github.racoondog.meteorsharedaddonutils.mixin.ISystems;
+import io.github.racoondog.meteorsharedaddonutils.mixin.mixin.ISystems;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.addons.AddonManager;
 import meteordevelopment.meteorclient.gui.GuiTheme;
@@ -33,7 +33,7 @@ public final class ElectronSystem extends System<ElectronSystem> {
 
     public final Setting<Boolean> chunkBlockIterator = sgGeneral.add(new BoolSetting.Builder()
         .name("chunk-block-iterator")
-        .description("Replaces the BlockIterator with an optimized version.")
+        .description("Replaces the BlockIterator with an implementation that iterates chunk by chunk.")
         .defaultValue(true)
         .onChanged(o -> {
             if (o) {
