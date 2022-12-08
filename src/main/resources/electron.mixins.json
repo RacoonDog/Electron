@@ -5,17 +5,19 @@
   "plugin": "io.github.racoondog.electron.dev.MixinPlugin",
   "client": [
     "BlockIteratorMixin",
-    "asyncaddoninit.CommandsMixin",
+    "rainbowcolors.ColorSettingMixin",
     "CompilerMixin",
     "EntityUtilsMixin",
+    "rainbowcolors.RainbowColorsMixin",
+    "ReflectInitMixin",
+    "UtilsMixin",
+    "asyncaddoninit.CommandsMixin",
     "asyncaddoninit.GuiThemesMixin",
     "asyncaddoninit.HudMixin",
     "asyncaddoninit.MeteorClientMixin",
     "asyncaddoninit.ModulesMixin",
-    "ReflectInitMixin",
     "asyncaddoninit.SystemsMixin",
-    "asyncaddoninit.TabsMixin",
-    "UtilsMixin"
+    "asyncaddoninit.TabsMixin"
   ],
   "injectors": {
     "defaultRequire": 1
