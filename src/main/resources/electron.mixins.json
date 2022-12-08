@@ -10,7 +10,6 @@
     "EntityUtilsMixin",
     "rainbowcolors.RainbowColorsMixin",
     "ReflectInitMixin",
-    "UtilsMixin",
     "asyncaddoninit.CommandsMixin",
     "asyncaddoninit.GuiThemesMixin",
     "asyncaddoninit.HudMixin",
