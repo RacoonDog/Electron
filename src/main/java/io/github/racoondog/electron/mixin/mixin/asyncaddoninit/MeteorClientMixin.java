@@ -1,4 +1,4 @@
-package io.github.racoondog.electron.mixin.asyncaddoninit;
+package io.github.racoondog.electron.mixin.mixin.asyncaddoninit;
 
 import io.github.racoondog.electron.utils.AddonInitThreading;
 import meteordevelopment.meteorclient.MeteorClient;

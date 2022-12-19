@@ -1,4 +1,4 @@
-package io.github.racoondog.electron.mixin;
+package io.github.racoondog.electron.mixin.mixin;
 
 import io.github.racoondog.electron.utils.ChunkUtils;
 import meteordevelopment.meteorclient.utils.entity.EntityUtils;

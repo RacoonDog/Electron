@@ -1,14 +1,11 @@
 {
   "required": true,
-  "package": "io.github.racoondog.electron.mixin",
+  "package": "io.github.racoondog.electron.mixin.mixin",
   "compatibilityLevel": "JAVA_17",
   "plugin": "io.github.racoondog.electron.dev.MixinPlugin",
   "client": [
     "BlockIteratorMixin",
-    "rainbowcolors.ColorSettingMixin",
-    "CompilerMixin",
     "EntityUtilsMixin",
-    "rainbowcolors.RainbowColorsMixin",
     "ReflectInitMixin",
     "asyncaddoninit.CommandsMixin",
     "asyncaddoninit.GuiThemesMixin",
@@ -16,7 +13,13 @@
     "asyncaddoninit.MeteorClientMixin",
     "asyncaddoninit.ModulesMixin",
     "asyncaddoninit.SystemsMixin",
-    "asyncaddoninit.TabsMixin"
+    "asyncaddoninit.TabsMixin",
+    "rainbowcolors.ColorSettingMixin",
+    "rainbowcolors.RainbowColorsMixin",
+    "starscript.CompilerMixin",
+    "starscript.MeteorStarscriptMixin",
+    "starscript.StarscriptMixin",
+    "starscript.TextHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1

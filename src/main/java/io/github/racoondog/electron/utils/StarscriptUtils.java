@@ -1,6 +1,9 @@
 package io.github.racoondog.electron.utils;
 
 import io.github.racoondog.electron.ElectronSystem;
+import io.github.racoondog.electron.mixin.mixininterface.IStarscript;
+import meteordevelopment.starscript.Script;
+import meteordevelopment.starscript.Starscript;
 import meteordevelopment.starscript.compiler.Expr;
 import meteordevelopment.starscript.compiler.Token;
 import net.fabricmc.api.EnvType;
@@ -19,6 +22,26 @@ import net.fabricmc.api.Environment;
  */
 @Environment(EnvType.CLIENT)
 public final class StarscriptUtils {
+    /**
+     * Runs the script and returns a raw string. Throws {@link meteordevelopment.starscript.utils.StarscriptError} if a runtime error occurs.
+     *
+     * @author Crosby
+     * @since 0.2.4
+     */
+    public static String getRawString(Starscript ss, Script script) {
+        return getRawString(ss, script, new StringBuilder());
+    }
+
+    /**
+     * Runs the script and fills the provided {@link StringBuilder} and returns a raw string. Throws {@link meteordevelopment.starscript.utils.StarscriptError} if a runtime error occurs.
+     *
+     * @author Crosby
+     * @since 0.2.4
+     */
+    public static String getRawString(Starscript ss, Script script, StringBuilder sb) {
+        return ((IStarscript) ss).rawRun(script, sb);
+    }
+
     private static Expr _null(Expr base) {
         return ElectronSystem.get().nullOnError.get() ? new Expr.Null(base.start, base.end) : base;
     }

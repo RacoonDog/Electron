@@ -1,4 +1,4 @@
-package io.github.racoondog.electron.mixin.rainbowcolors;
+package io.github.racoondog.electron.mixin.mixin.rainbowcolors;
 
 import io.github.racoondog.electron.utils.RainbowColorsUtils;
 import meteordevelopment.meteorclient.settings.ColorSetting;

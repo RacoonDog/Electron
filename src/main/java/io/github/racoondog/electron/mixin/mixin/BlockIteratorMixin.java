@@ -1,4 +1,4 @@
-package io.github.racoondog.electron.mixin;
+package io.github.racoondog.electron.mixin.mixin;
 
 import io.github.racoondog.electron.ElectronSystem;
 import io.github.racoondog.electron.blockiterator.ChunkBlockIterator;

@@ -10,6 +10,7 @@ import meteordevelopment.meteorclient.addons.MeteorAddon;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import org.apache.commons.lang3.time.StopWatch;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,13 +21,15 @@ import java.util.concurrent.TimeUnit;
 public final class AddonInitThreading {
     private static boolean initialized = false;
     private static int THREADS;
-    private static ExecutorService EXECUTOR;
+    private static @Nullable ExecutorService EXECUTOR;
 
     static {
         if (ElectronSystem.get().asynchronousAddonInit.get()) {
             THREADS = ElectronSystem.get().addonInitThreads.get();
-            ThreadFactory factory = new ThreadFactoryBuilder().setNameFormat("Addon Initializater %s").build();
-            EXECUTOR = THREADS == 1 ? Executors.newSingleThreadExecutor(factory) : Executors.newFixedThreadPool(THREADS, factory);
+            if (THREADS > 1) {
+                ThreadFactory factory = new ThreadFactoryBuilder().setNameFormat("Addon Initializater %s").build();
+                EXECUTOR = Executors.newFixedThreadPool(THREADS, factory);
+            }
         }
     }
 
@@ -54,8 +57,8 @@ public final class AddonInitThreading {
         boolean success = EXECUTOR.awaitTermination(4, TimeUnit.MINUTES); //Wait for addon initialization to finish
 
         //post init
-        ThreadUtils.initLock = false;
         ThreadUtils.registerObjects();
+        ThreadUtils.initLock = false;
 
         return success;
     }
