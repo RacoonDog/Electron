@@ -36,6 +36,6 @@
 - `ReflectInit Caching` : Reduces game launch time by ~100-300 ms with 5 addons.
 - `Rainbow Optimizations` : Deactivates the `RainbowColors` tick loop when no rainbow colors are in use.
 - `Utils Optimizations` : Optimizes some util class methods.
-- `TextHud Optimizations` : Re-use `StringBuilder` objects.
+- `Starscript Optimizations` : Ignore `Section` instructions when context does not allow colored text and re-use `StringBuilder` objects when applicable.
 
 totally didnt steal this readme template
