@@ -2,7 +2,7 @@
   <!-- Logo and Title -->
   <img src="/src/main/resources/assets/electron/icon.png" alt="logo" width="30%"/>
   <h1>Electron</h1>
-  <p>A performance optimization addon for Meteor Clien which works to speed up launching the game and optimize the tick loop.</p>
+  <p>A performance optimization addon for Meteor Client which works to speed up launching the game and optimize the tick loop.</p>
 
   <!-- Fancy badges -->
 <a href="https://anticope.ml/pages/MeteorAddons.html"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet" alt="Verified Addon"></a>
