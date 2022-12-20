@@ -14,7 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-@Mixin(RenderUtils.class)
+@Mixin(value = RenderUtils.class, remap = false)
 public abstract class RenderUtilsMixin {
     @Shadow @Final private static Pool<RenderUtils.RenderBlock> renderBlockPool;
     @Shadow @Final private static List<RenderUtils.RenderBlock> renderBlocks;

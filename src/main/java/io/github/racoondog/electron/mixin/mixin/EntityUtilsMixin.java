@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 @Environment(EnvType.CLIENT)
-@Mixin(EntityUtils.class)
+@Mixin(value = EntityUtils.class, remap = false)
 public abstract class EntityUtilsMixin {
     /**
      * @author Crosby

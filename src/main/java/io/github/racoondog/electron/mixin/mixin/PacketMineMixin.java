@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 @Environment(EnvType.CLIENT)
-@Mixin(PacketMine.class)
+@Mixin(value = PacketMine.class, remap = false)
 public abstract class PacketMineMixin {
     @Shadow @Final private Pool<PacketMine.MyBlock> blockPool;
 

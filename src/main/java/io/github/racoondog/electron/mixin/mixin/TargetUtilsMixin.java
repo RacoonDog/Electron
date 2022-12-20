@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 @Environment(EnvType.CLIENT)
-@Mixin(TargetUtils.class)
+@Mixin(value = TargetUtils.class, remap = false)
 public abstract class TargetUtilsMixin {
     /**
      * Use repeated removal instead of iterating through elements with a predicate *ahem* removeIf *ahem*.
