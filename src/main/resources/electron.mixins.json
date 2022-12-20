@@ -6,6 +6,8 @@
   "client": [
     "BlockIteratorMixin",
     "EntityUtilsMixin",
+    "HoleFillerMixin",
+    "LightOverlayMixin",
     "ReflectInitMixin",
     "asyncaddoninit.CommandsMixin",
     "asyncaddoninit.GuiThemesMixin",

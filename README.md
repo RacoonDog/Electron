@@ -34,8 +34,10 @@
 ## Other Optimizations
 
 - `ReflectInit Caching` : Reduces game launch time by ~100-300 ms with 5 addons.
-- `Rainbow Optimizations` : Deactivates the `RainbowColors` tick loop when no rainbow colors are in use.
-- `Utils Optimizations` : Optimizes some util class methods.
-- `Starscript Optimizations` : Ignore `Section` instructions when context does not allow colored text and re-use `StringBuilder` objects when applicable.
+- `Rainbow` : Deactivates the `RainbowColors` tick loop when no rainbow colors are in use.
+- `Utils` : Optimizes some util class methods.
+- `Starscript` : Ignores `Section` instructions when context does not allow colored text and re-use `StringBuilder` objects when applicable.
+- `Light Overlay` : Skips rendering crosses that are above the camera's Y position.
+- `Hole Filler` : Stops iterating blocks when past the blocks per tick threshold.
 
 totally didnt steal this readme template
