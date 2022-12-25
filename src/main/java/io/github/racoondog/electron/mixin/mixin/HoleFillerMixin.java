@@ -27,7 +27,7 @@ import java.util.function.Predicate;
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = HoleFiller.class, remap = false)
+@Mixin(value = HoleFiller.class)
 public abstract class HoleFillerMixin {
     @Shadow @Final private Setting<Boolean> predict;
     @Shadow @Final private Setting<Integer> blocksPerTick;
@@ -37,7 +37,7 @@ public abstract class HoleFillerMixin {
      * @reason Directly use primitives instead of creating multiple immutable objects.
      * @since 0.2.5
      */
-    @Overwrite
+    @Overwrite(remap = false)
     private double distance(PlayerEntity player, BlockPos pos, boolean feet) {
         double x = player.getX(), y = player.getY(), z = player.getZ();
 
@@ -61,7 +61,7 @@ public abstract class HoleFillerMixin {
      * @author Crosby
      * @since 0.2.5
      */
-    @Redirect(method = "validHole", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;getOtherEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;Ljava/util/function/Predicate;)Ljava/util/List;"))
+    @Redirect(method = "validHole", remap = false, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;getOtherEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;Ljava/util/function/Predicate;)Ljava/util/List;"))
     private List<Entity> replaceCheck(ClientWorld instance, Entity entity, Box box, Predicate<Entity> predicate) {
         if (EntityUtils.intersectsWithEntity(box, predicate)) return Lists.newArrayList(entity); // Non-empty list
         else return new ArrayList<>(); // Empty list
@@ -77,7 +77,7 @@ public abstract class HoleFillerMixin {
      * @author Crosby
      * @since 0.2.5
      */
-    @Inject(method = "onTick", at = @At(value = "INVOKE", target = "Lmeteordevelopment/meteorclient/utils/world/BlockIterator;register(IILjava/util/function/BiConsumer;)V", shift = At.Shift.BEFORE))
+    @Inject(method = "onTick", remap = false, at = @At(value = "INVOKE", target = "Lmeteordevelopment/meteorclient/utils/world/BlockIterator;register(IILjava/util/function/BiConsumer;)V", shift = At.Shift.BEFORE, remap = false))
     private void setCounter(TickEvent.Pre event, CallbackInfo ci) {
         this.counter = 0;
     }
@@ -88,7 +88,7 @@ public abstract class HoleFillerMixin {
      * @author Crosby
      * @since 0.2.5
      */
-    @Inject(method = "lambda$onTick$5", at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z"))
+    @Inject(method = "lambda$onTick$5", remap = false, at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", remap = false))
     private void incrementCounter(BlockPos blockPos, BlockState blockState, CallbackInfo ci) {
         this.counter++;
     }
@@ -99,7 +99,7 @@ public abstract class HoleFillerMixin {
      * @author Crosby
      * @since 0.2.5
      */
-    @Inject(method = "lambda$onTick$5", at = @At("TAIL"))
+    @Inject(method = "lambda$onTick$5", remap = false, at = @At("TAIL"))
     private void breakLoop(BlockPos blockPos, BlockState blockState, CallbackInfo ci) {
         if (this.counter >= this.blocksPerTick.get()) BlockIterator.disableCurrent();
     }
