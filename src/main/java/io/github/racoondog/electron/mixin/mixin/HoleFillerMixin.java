@@ -29,8 +29,8 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
 @Environment(EnvType.CLIENT)
 @Mixin(value = HoleFiller.class)
 public abstract class HoleFillerMixin {
-    @Shadow @Final private Setting<Boolean> predict;
-    @Shadow @Final private Setting<Integer> blocksPerTick;
+    @Shadow(remap = false) @Final private Setting<Boolean> predict;
+    @Shadow(remap = false) @Final private Setting<Integer> blocksPerTick;
 
     /**
      * @author Crosby

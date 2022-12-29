@@ -26,7 +26,13 @@
     "starscript.MeteorStarscriptMixin",
     "starscript.SayCommandMixin",
     "starscript.StarscriptMixin",
-    "starscript.TextHudMixin"
+    "starscript.TextHudMixin",
+    "unstream.FakePlayerArgumentTypeMixin",
+    "unstream.FriendArgumentTypeMixin",
+    "unstream.ModuleArgumentTypeMixin",
+    "unstream.PlayerArgumentTypeMixin",
+    "unstream.PlayerListEntryArgumentTypeMixin",
+    "unstream.ProfileArgumentTypeMixin"
   ],
   "injectors": {
     "defaultRequire": 1
