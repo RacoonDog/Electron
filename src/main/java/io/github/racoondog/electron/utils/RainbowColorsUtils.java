@@ -1,6 +1,6 @@
 package io.github.racoondog.electron.utils;
 
-import io.github.racoondog.electron.ElectronMixinPlugin;
+import io.github.racoondog.electron.config.ElectronConfig;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.settings.ColorSetting;
 import meteordevelopment.meteorclient.utils.PostInit;
@@ -17,7 +17,7 @@ public final class RainbowColorsUtils {
 
     @PostInit(dependencies = RainbowColors.class)
     public static void deactivateByDefault() {
-        if (!ElectronMixinPlugin.SETTINGS.contains("io.github.racoondog.electron.mixin.tick") && !ElectronMixinPlugin.SETTINGS.contains("io.github.racoondog.electron.mixin.tick.colors")) MeteorClient.EVENT_BUS.unsubscribe(RainbowColors.class);
+        if (!ElectronConfig.isDisabled("io.github.racoondog.electron.mixin.tick.colors")) MeteorClient.EVENT_BUS.unsubscribe(RainbowColors.class);
     }
 
     /**

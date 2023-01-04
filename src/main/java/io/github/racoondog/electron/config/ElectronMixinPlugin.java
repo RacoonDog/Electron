@@ -1,19 +1,16 @@
-package io.github.racoondog.electron;
+package io.github.racoondog.electron.config;
 
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 public class ElectronMixinPlugin implements IMixinConfigPlugin {
-    public static final List<String> SETTINGS = new ArrayList<>();
-
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        for (var pkg : SETTINGS) {
+        for (var pkg : ElectronConfig.SETTINGS) {
             if (mixinClassName.startsWith(pkg)) return false;
         }
         return true;

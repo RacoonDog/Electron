@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.12-SNAPSHOT'
+    id 'fabric-loom' version '1.0-SNAPSHOT'
 }
 
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
@@ -42,7 +42,7 @@ dependencies {
         transitive = false
     }
 
-    modLocalRuntime("io.gitlab.jfronny.libjf:libjf-devutil-v0:+")
+    //modLocalRuntime("io.gitlab.jfronny.libjf:libjf-devutil-v0:+")
 }
 
 processResources {

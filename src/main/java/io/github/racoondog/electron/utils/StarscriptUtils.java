@@ -1,6 +1,6 @@
 package io.github.racoondog.electron.utils;
 
-import io.github.racoondog.electron.ElectronMixinPlugin;
+import io.github.racoondog.electron.config.ElectronConfig;
 import io.github.racoondog.electron.mixininterface.IStarscript;
 import meteordevelopment.meteorclient.utils.misc.MeteorStarscript;
 import meteordevelopment.starscript.Script;
@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
  */
 @Environment(EnvType.CLIENT)
 public final class StarscriptUtils {
-    public static final boolean IGNORE_SECTIONS = !ElectronMixinPlugin.SETTINGS.contains("io.github.racoondog.electron.mixin.starscript.section") && !ElectronMixinPlugin.SETTINGS.contains("io.github.racoondog.electron.mixin.starscript");
+    public static final boolean IGNORE_SECTIONS = !ElectronConfig.isDisabled("io.github.racoondog.electron.mixin.starscript.section");
 
     /**
      * Runs the script and returns a raw string. Throws {@link meteordevelopment.starscript.utils.StarscriptError} if a runtime error occurs.
