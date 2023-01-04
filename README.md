@@ -21,24 +21,21 @@
 
 *Note: It is recommended to use the [latest dev build](https://meteorclient.com/download?devBuild=latest) of meteor while using Electron*
 
-## Settings
+## Settings/Optimizations
 
-- `Chunk Block Iterator` : Optimizes the block iterator used in modules such as HoleFiller, LightOverlay and Nuker. This has the side effect of changing the order of blocks returned, which should not change normal Meteor Client behavior.
-- `Async Addon Init` : Initializes multiple addons at the same time. Reduces game launch time by ~100-200 ms with 5 addons and 4 threads. 
-    - `Addon Init Threads` : Changes the amount of threads allocated to asynchronous addon initialization.
-- `Starscript Optimizations` : Enables Starscript optimizations. This also enables static constant folding and propagation.
-    - `Null On Error` : Makes the Starscript Optimizer replace an erroring instruction with `null` instead of skipping it.
-    - `Ignore Sections` : Makes the Starscript Optimizer delete section instructions. Only use if you know what you are doing.
-    - `Null Propagation` : Makes the Starscript Optimizer replace functions which have `null` parameters with `null` instructions. This is only really useful if `Null On Error` is activated. This has the side effect of breaking functions which take `null` as parameters.
-
-## Other Optimizations
-
-- `ReflectInit Caching` : Reduces game launch time by ~100-300 ms with 5 addons.
-- `Rainbow` : Deactivates the `RainbowColors` tick loop when no rainbow colors are in use.
-- `Starscript` : Ignores `Section` instructions when context does not allow colored text and re-use `StringBuilder` objects when applicable.
-- `Light Overlay` : Skips rendering crosses that are above the camera's Y position.
-- `Hole Filler` : Stops iterating blocks when past the blocks per tick threshold.
-
-& Various utility method optimizations.
-
-*totally didnt steal this readme template*
+Put any of these settings in the `meteor-client/electron.txt` file to disable them.
+For more advanced configuration, you can also put specific mixin files.
+- `io.github.racoondog.electron.mixin.dev`: Enables various developer tools.
+- `io.github.racoondog.electron.mixin.dev.profiler`: Enables profiling tools.
+- `io.github.racoondog.electron.mixin.loading`: Loading time optimizations.
+- `io.github.racoondog.electron.mixin.math`: Math-related optimizations.
+- `io.github.racoondog.electron.mixin.math.fma`: Uses optimized FMA instructions in place of some mathematical operations.
+- `io.github.racoondog.electron.mixin.render`: Rendering optimizations.
+- `io.github.racoondog.electron.mixin.render.culling`: Render culling optimizations.
+- `io.github.racoondog.electron.mixin.starscript`: Starscript optimizations.
+- `io.github.racoondog.electron.mixin.starscript.section`: Disables section instructions. Only use if you know what you are doing.
+- `io.github.racoondog.electron.mixin.starscript.raw`: Replaces starscript implementation with formatting-less versions in some cases.
+- `io.github.racoondog.electron.mixin.stream`: Replaces stream operations with iterative implementations when the list size is small.
+- `io.github.racoondog.electron.mixin.tick`: Tick loop optimizations.
+- `io.github.racoondog.electron.mixin.tick.colors`: Disables rainbow color updates when not in use.
+- `io.github.racoondog.electron.mixin.tick.blockiterator`: Replaces the BlockIterator with an optimized version.

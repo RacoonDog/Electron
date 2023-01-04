@@ -42,8 +42,7 @@ dependencies {
         transitive = false
     }
 
-    //modLocalRuntime("io.gitlab.jfronny.libjf:libjf-devutil-v0:+")
-    //implementation include('com.github.Chocohead:Fabric-ASM:v2.3') @todo implement
+    modLocalRuntime("io.gitlab.jfronny.libjf:libjf-devutil-v0:+")
 }
 
 processResources {

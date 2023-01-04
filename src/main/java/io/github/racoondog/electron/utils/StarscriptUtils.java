@@ -1,13 +1,16 @@
 package io.github.racoondog.electron.utils;
 
-import io.github.racoondog.electron.ElectronSystem;
-import io.github.racoondog.electron.mixin.mixininterface.IStarscript;
+import io.github.racoondog.electron.ElectronMixinPlugin;
+import io.github.racoondog.electron.mixininterface.IStarscript;
+import meteordevelopment.meteorclient.utils.misc.MeteorStarscript;
 import meteordevelopment.starscript.Script;
 import meteordevelopment.starscript.Starscript;
 import meteordevelopment.starscript.compiler.Expr;
 import meteordevelopment.starscript.compiler.Token;
+import meteordevelopment.starscript.utils.StarscriptError;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Things I would do to Starscript to improve code performance
@@ -22,6 +25,8 @@ import net.fabricmc.api.Environment;
  */
 @Environment(EnvType.CLIENT)
 public final class StarscriptUtils {
+    public static final boolean IGNORE_SECTIONS = !ElectronMixinPlugin.SETTINGS.contains("io.github.racoondog.electron.mixin.starscript.section") && !ElectronMixinPlugin.SETTINGS.contains("io.github.racoondog.electron.mixin.starscript");
+
     /**
      * Runs the script and returns a raw string. Throws {@link meteordevelopment.starscript.utils.StarscriptError} if a runtime error occurs.
      *
@@ -42,38 +47,29 @@ public final class StarscriptUtils {
         return ((IStarscript) ss).rawRun(script, sb);
     }
 
-    private static Expr _null(Expr base) {
-        return ElectronSystem.get().nullOnError.get() ? new Expr.Null(base.start, base.end) : base;
+    public static @Nullable String runRawString(Script script, StringBuilder sb) {
+        try {
+            return getRawString(MeteorStarscript.ss, script, sb);
+        } catch (StarscriptError error) {
+            MeteorStarscript.printChatError(error);
+            return null;
+        }
     }
 
-    public static boolean ignoreSections() {
-        return ElectronSystem.get().starscript.get() && ElectronSystem.get().ignoreSections.get();
-    }
-
-    public static boolean isBooleanOperation(Token op) {
-        return op == Token.EqualEqual || op == Token.BangEqual || op == Token.Greater || op == Token.GreaterEqual || op == Token.Less || op == Token.LessEqual;
-    }
-
-    public static boolean equals(Expr left, Expr right) {
-        if (left.getClass() != right.getClass()) return false;
-        else if (left instanceof Expr.Null) return true;
-        else if (left instanceof Expr.Bool boolExpr) return boolExpr.bool == ((Expr.Bool) right).bool;
-        else if (left instanceof Expr.Number boolExpr) return boolExpr.number == ((Expr.Number) right).number;
-        else if (left instanceof Expr.String boolExpr) return boolExpr.string.equals(((Expr.String) right).string);
-        else return false;
+    public static @Nullable String runRawString(Script script) {
+        return runRawString(script, new StringBuilder());
     }
 
     //Assumes both Exprs are of the same class
     public static boolean _equals(Expr left, Expr right) {
-        if (left instanceof Expr.Null) return true;
-        else if (left instanceof Expr.Bool boolExpr) return boolExpr.bool == ((Expr.Bool) right).bool;
+        if (left instanceof Expr.Bool boolExpr) return boolExpr.bool == ((Expr.Bool) right).bool;
         else if (left instanceof Expr.Number boolExpr) return boolExpr.number == ((Expr.Number) right).number;
         else if (left instanceof Expr.String boolExpr) return boolExpr.string.equals(((Expr.String) right).string);
         else return false;
     }
 
     public static boolean isSolveable(Expr expr) {
-        if (expr instanceof Expr.Variable || expr instanceof Expr.Get) return false;
+        if (expr instanceof Expr.Variable || expr instanceof Expr.Get || expr instanceof Expr.Call || expr instanceof Expr.Null) return false;
         else if (expr instanceof Expr.Binary binaryExpr) return isSolveable(binaryExpr.right) && isSolveable(binaryExpr.left);
         else if (expr instanceof Expr.Unary unaryExpr) return isSolveable(unaryExpr.right);
         else if (expr instanceof Expr.Logical logicalExpr) return isSolveable(logicalExpr.right) && isSolveable(logicalExpr.left);
@@ -81,7 +77,6 @@ public final class StarscriptUtils {
         else if (expr instanceof Expr.Section sectionExpr) return isSolveable(sectionExpr.expr);
         else if (expr instanceof Expr.Group groupExpr) return isSolveable(groupExpr.expr);
         else if (expr instanceof Expr.Block blockExpr) return isSolveable(blockExpr.expr);
-        else if (expr instanceof Expr.Call callExpr) return isCallSolveable(callExpr);
         else return true;
     }
 
@@ -93,7 +88,6 @@ public final class StarscriptUtils {
         else if (expr instanceof Expr.Section sectionExpr) return solveSection(sectionExpr);
         else if (expr instanceof Expr.Group groupExpr) return solveGroup(groupExpr);
         else if (expr instanceof Expr.Block blockExpr) return solveBlock(blockExpr);
-        else if (expr instanceof Expr.Call callExpr) return solveCall(callExpr);
         else return expr;
     }
 
@@ -102,9 +96,7 @@ public final class StarscriptUtils {
             Expr left = solve(expr.left);
             Expr right = solve(expr.right);
 
-            if (left.getClass() != right.getClass()) return _null(expr); //Incompatible types
-
-            if (ElectronSystem.get().nullPropagation.get() && (left instanceof Expr.Null || right instanceof Expr.Null)) return _null(expr); //Propagate null
+            if (left.getClass() != right.getClass()) return expr; //Incompatible types
 
             if (expr.op == Token.EqualEqual) {
                 return new Expr.Bool(expr.start, expr.end, _equals(left, right));
@@ -140,7 +132,7 @@ public final class StarscriptUtils {
                 else if (rightNumber.number == 0) return new Expr.Number(expr.start, expr.end, 0.0D); // x * 0 = 0
             } else if (expr.op == Token.Slash) {
                 if (rightNumber.number == 1) return expr.left; // x / 1 = x
-                else if (rightNumber.number == 0) return _null(expr); //Division by 0
+                else if (rightNumber.number == 0) return expr; //Division by 0
             } else if (expr.op == Token.UpArrow) {
                 if (rightNumber.number == 1) return expr.right; // x ^ 1 = x
                 else if (rightNumber.number == 0) return new Expr.Number(expr.start, expr.end, 1.0D); // x ^ 0 = 1
@@ -160,7 +152,7 @@ public final class StarscriptUtils {
 
             if (nestedExpr instanceof Expr.Bool boolExpr && expr.op == Token.Bang) return new Expr.Bool(expr.start, expr.end, !boolExpr.bool); // !boolean
             else if (nestedExpr instanceof Expr.Number numberExpr && expr.op == Token.Minus) return new Expr.Number(expr.start, expr.end, -numberExpr.number); // -number
-            else return _null(expr); //Invalid operation
+            else return expr; //Invalid operation
         }
         return expr;
     }
@@ -172,7 +164,7 @@ public final class StarscriptUtils {
         if (leftSolveable && rightSolveable) {
             Expr left = solve(expr.left);
             Expr right = solve(expr.right);
-            if (!(left instanceof Expr.Bool) || !(right instanceof Expr.Bool)) return _null(expr); //Not a boolean
+            if (!(left instanceof Expr.Bool) || !(right instanceof Expr.Bool)) return expr; //Not a boolean
 
             //Constant folding
             if (expr.op == Token.And) return new Expr.Bool(expr.start, expr.end, ((Expr.Bool) left).bool && ((Expr.Bool) right).bool);
@@ -189,7 +181,7 @@ public final class StarscriptUtils {
                     if (boolExpr.bool) return new Expr.Bool(expr.start, expr.end, true); // true or unknown = true
                     else return unknown; // false or unknown = unknown
                 }
-            } else return _null(expr); //Not a boolean
+            }
         }
         return expr; //Both values unknown
     }
@@ -201,7 +193,7 @@ public final class StarscriptUtils {
             if (condition instanceof Expr.Bool boolExpr) {
                 Expr nestedExpr = boolExpr.bool ? expr.trueExpr : expr.falseExpr; //Find path
                 return isSolveable(nestedExpr) ? solve(nestedExpr) : nestedExpr; //Try solve path
-            } else return _null(expr); //Not a boolean
+            }
         }
         return expr;
     }
@@ -209,7 +201,7 @@ public final class StarscriptUtils {
     public static Expr solveSection(Expr.Section expr) {
         if (isSolveable(expr.expr)) {
             Expr solved = solve(expr.expr);
-            if (ElectronSystem.get().ignoreSections.get()) return solved;
+            if (IGNORE_SECTIONS) return solved;
             else return new Expr.Section(expr.start, expr.end, expr.index, solved);
         }
         else return expr;
@@ -222,19 +214,6 @@ public final class StarscriptUtils {
 
     public static Expr solveBlock(Expr.Block expr) {
         if (isSolveable(expr.expr)) return solve(expr.expr);
-        else return expr;
-    }
-
-    public static boolean isCallSolveable(Expr.Call expr) {
-        if (!ElectronSystem.get().nullPropagation.get()) return false;
-        for (var arg : expr.args) {
-            if (arg instanceof Expr.Null) return true;
-        }
-        return false;
-    }
-
-    public static Expr solveCall(Expr.Call expr) {
-        if (isCallSolveable(expr)) return _null(expr);
         else return expr;
     }
 }
