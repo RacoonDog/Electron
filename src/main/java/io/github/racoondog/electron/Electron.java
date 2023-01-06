@@ -1,18 +1,14 @@
 package io.github.racoondog.electron;
 
-import com.mojang.logging.LogUtils;
 import io.github.racoondog.meteorsharedaddonutils.features.TitleScreenCredits;
 import meteordevelopment.meteorclient.addons.GithubRepo;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
-import org.slf4j.Logger;
 
 @Environment(EnvType.CLIENT)
 public final class Electron extends MeteorAddon {
-    public static final Logger LOG = LogUtils.getLogger();
-
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     @Override
     public void onInitialize() {

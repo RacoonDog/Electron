@@ -1,24 +1,20 @@
 package io.github.racoondog.electron.config;
 
-import io.github.racoondog.electron.Electron;
-import meteordevelopment.meteorclient.MeteorClient;
-import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
+import io.github.racoondog.electron.utils.Constants;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ElectronConfig implements PreLaunchEntrypoint {
+public class ElectronConfig {
     public static final List<String> SETTINGS = new ArrayList<>();
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    @Override
-    public void onPreLaunch() {
+    static {
         try {
-            File file = new File(MeteorClient.FOLDER, "electron.txt");
+            File file = Constants.CONFIG_FILE;
             //Create if missing
             if (!file.exists()) {
-                Electron.LOG.info("Generating config file...");
+                Constants.LOG.info("Generating config file...");
                 file.getParentFile().mkdirs();
                 file.createNewFile();
                 try (var writer = new FileWriter(file)) {
@@ -37,7 +33,7 @@ public class ElectronConfig implements PreLaunchEntrypoint {
                 }
             }
         } catch (IOException e) {
-            Electron.LOG.error("Could not load config...");
+            Constants.LOG.error("Could not load config...");
             e.printStackTrace();
         }
     }

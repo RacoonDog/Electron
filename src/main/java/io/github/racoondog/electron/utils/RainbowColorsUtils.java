@@ -40,7 +40,7 @@ public final class RainbowColorsUtils {
      * @author Crosby
      */
     public static boolean shouldSkipTick() {
-        if (mc.currentScreen.getClass().getPackageName().startsWith("meteor")) return false;
+        if (mc.currentScreen != null && mc.currentScreen.getClass().getPackageName().startsWith("meteor")) return false;
 
         for (var setting : rainbowColorSettings) {
             if (setting.module != null && setting.module.isActive()) return false;

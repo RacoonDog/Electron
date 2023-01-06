@@ -16,9 +16,6 @@
   "entrypoints": {
     "meteor": [
       "io.github.racoondog.electron.Electron"
-    ],
-    "preLaunch": [
-      "io.github.racoondog.electron.config.ElectronConfig"
     ]
   },
   "mixins": [
