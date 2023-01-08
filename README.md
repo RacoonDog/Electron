@@ -5,14 +5,16 @@
   <p>A performance optimization addon for Meteor Client which works to speed up launching the game and optimize the tick loop.</p>
 
   <!-- Fancy badges -->
-<a href="https://anticope.ml/pages/MeteorAddons.html"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet" alt="Verified Addon"></a>
-<img src="https://img.shields.io/badge/Minecraft%20Version-1.19.2-blue" alt="Minecraft Version">
-<a href="https://github.com/RacoonDog/Electron/commits/main"><img src="https://img.shields.io/github/last-commit/RacoonDog/Electron?logo=git" alt="Last commit"></a>
-<img src="https://img.shields.io/github/languages/code-size/RacoonDog/Electron" alt="Code Size">
-<img src="https://img.shields.io/github/repo-size/RacoonDog/Electron" alt="Repo Size">
-<img src="https://img.shields.io/github/issues/RacoonDog/Electron" alt="Issues">
-<img src="https://img.shields.io/github/stars/RacoonDog/Electron" alt="Stars">
-<img src="https://img.shields.io/github/downloads/RacoonDog/Electron/total" alt="Downloads">
+<a href="https://anticope.ml/pages/MeteorAddons.html"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-yellow" alt="Verified Addon"></a>
+<img src="https://img.shields.io/badge/Minecraft%20Version-1.19.2-yellow" alt="Minecraft Version">
+<a href="https://github.com/RacoonDog/Electron/commits/main"><img src="https://img.shields.io/github/last-commit/RacoonDog/Electron?logo=github&color=yellow" alt="Last commit"></a>
+<img src="https://img.shields.io/github/languages/code-size/RacoonDog/Electron?color=yellow" alt="Code Size">
+<img src="https://img.shields.io/github/repo-size/RacoonDog/Electron?color=yellow" alt="Repo Size">
+<img src="https://img.shields.io/github/issues/RacoonDog/Electron?color=yellow" alt="Issues">
+<img src="https://img.shields.io/github/stars/RacoonDog/Electron?color=yellow" alt="Stars">
+<img src="https://img.shields.io/github/downloads/RacoonDog/Electron/total?color=yellow" alt="Downloads">
+
+<a href="https://discord.gg/4RBmBCFSTc"><img src="https://invidget.switchblade.xyz/4RBmBCFSTc"></a>
 </div>
 
 # How to use

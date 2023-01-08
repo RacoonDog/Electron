@@ -5,6 +5,8 @@ import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.settings.ColorSetting;
 import meteordevelopment.meteorclient.utils.PostInit;
 import meteordevelopment.meteorclient.utils.render.color.RainbowColors;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.List;
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 /** Note: This system might break when using {@link meteordevelopment.meteorclient.settings.ColorListSetting} */
+@Environment(EnvType.CLIENT)
 public final class RainbowColorsUtils {
     private static final List<ColorSetting> rainbowColorSettings = new ArrayList<>();
 

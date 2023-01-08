@@ -8,7 +8,8 @@
   "contact": {
     "repo": "https://github.com/RacoonDog/Electron",
     "issues": "https://github.com/RacoonDog/Electron/issues",
-    "sources": "https://github.com/RacoonDog/Electron"
+    "sources": "https://github.com/RacoonDog/Electron",
+    "discord": "https://discord.gg/4RBmBCFSTc"
   },
   "license": "ARR",
   "icon": "assets/electron/icon.png",

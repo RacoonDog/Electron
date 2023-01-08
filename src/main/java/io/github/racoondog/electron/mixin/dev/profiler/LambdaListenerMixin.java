@@ -31,7 +31,7 @@ public abstract class LambdaListenerMixin {
     @Unique private String identifier;
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void saveId(LambdaListener.Factory factory, Class klass, Object object, Method method, CallbackInfo ci) {
+    private void saveId(LambdaListener.Factory factory, Class<?> klass, Object object, Method method, CallbackInfo ci) {
         if (ALLOWED_EVENTS.contains(target)) identifier = MeteorClient.MOD_ID + "_" + method.getDeclaringClass().getSimpleName() + "_" + method.getName();
     }
 

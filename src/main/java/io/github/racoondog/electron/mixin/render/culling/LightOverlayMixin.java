@@ -28,6 +28,6 @@ public abstract class LightOverlayMixin {
      */
     @Inject(method = "lambda$onTick$1", at = @At("HEAD"), cancellable = true)
     private void cullIfHidden(BlockPos blockPos, BlockState blockState, CallbackInfo ci) {
-        if (!seeThroughBlocks.get()) if (blockPos.getY() > mc.gameRenderer.getCamera().getBlockPos().getY()) ci.cancel();
+        if (!seeThroughBlocks.get() && blockPos.getY() > mc.gameRenderer.getCamera().getBlockPos().getY()) ci.cancel();
     }
 }

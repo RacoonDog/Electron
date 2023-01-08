@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 @Environment(EnvType.CLIENT)
 @Mixin(value = ColorSetting.class, remap = false)
 public abstract class ColorSettingMixin extends Setting<SettingColor> {
-    public ColorSettingMixin(String name, String description, SettingColor defaultValue, Consumer<SettingColor> onChanged, Consumer<Setting<SettingColor>> onModuleActivated, IVisible visible) {
+    private ColorSettingMixin(String name, String description, SettingColor defaultValue, Consumer<SettingColor> onChanged, Consumer<Setting<SettingColor>> onModuleActivated, IVisible visible) {
         super(name, description, defaultValue, onChanged, onModuleActivated, visible);
     }
 

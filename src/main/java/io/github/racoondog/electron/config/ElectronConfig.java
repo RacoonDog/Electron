@@ -1,7 +1,8 @@
 package io.github.racoondog.electron.config;
 
-import io.github.racoondog.electron.Electron;
 import io.github.racoondog.electron.utils.Constants;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.IOException;
@@ -11,7 +12,8 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ElectronConfig {
+@Environment(EnvType.CLIENT)
+public final class ElectronConfig {
     public static final List<String> SETTINGS = new ArrayList<>();
 
     static {
