@@ -25,7 +25,7 @@
   "custom": {
     "meteor-client:color": "255,201,58",
     "modmenu": {
-      "badges": [ "library", "meteor" ]
+      "badges": [ "meteor" ]
     }
   },
   "depends": {
