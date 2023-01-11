@@ -67,17 +67,4 @@ public abstract class CompilerMixin {
             ci.cancel();
         }
     }
-
-    /**
-     * Removes Sections if applicable.
-     *
-     * @author Crosby
-     */
-    @Inject(method = "visitSection", at = @At("HEAD"), cancellable = true)
-    private void ignoreSections(Expr.Section expr, CallbackInfo ci) {
-        if (StarscriptUtils.IGNORE_SECTIONS) {
-            compile(expr.expr);
-            ci.cancel();
-        }
-    }
 }

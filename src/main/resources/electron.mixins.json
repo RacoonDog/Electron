@@ -18,6 +18,7 @@
     "starscript.raw.MacroMixin",
     "starscript.raw.SayCommandMixin",
     "starscript.raw.StarscriptMixin",
+    "starscript.section.CompilerMixin",
     "starscript.section.MeteorStarscriptMixin",
     "stream.FakePlayerArgumentTypeMixin",
     "stream.FriendArgumentTypeMixin",
@@ -28,7 +29,10 @@
     "tick.HoleFillerMixin",
     "tick.RenderUtilsMixin",
     "tick.blockiterator.BlockIteratorMixin",
+    "tick.colors.ColorListSettingMixin",
     "tick.colors.ColorSettingMixin",
+    "tick.colors.DefaultSettingsWidgetFactoryMixin",
+    "tick.colors.IRainbowColors",
     "tick.colors.RainbowColorsMixin"
   ],
   "injectors": {

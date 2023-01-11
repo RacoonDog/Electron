@@ -25,9 +25,6 @@ public abstract class ReflectInitMixin {
      */
     @Redirect(method = "init", at = @At(value = "NEW", target = "org/reflections/Reflections"))
     private static Reflections cacheReflections(String prefix, Scanner[] scanners) {
-        if (REFLECTIONS_CACHE.containsKey(prefix)) return REFLECTIONS_CACHE.get(prefix);
-        Reflections reflections = new Reflections(prefix, scanners);
-        REFLECTIONS_CACHE.put(prefix, reflections);
-        return reflections;
+        return REFLECTIONS_CACHE.computeIfAbsent(prefix, e -> new Reflections(e, scanners));
     }
 }

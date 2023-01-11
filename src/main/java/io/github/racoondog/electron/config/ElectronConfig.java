@@ -3,7 +3,6 @@ package io.github.racoondog.electron.config;
 import io.github.racoondog.electron.utils.Constants;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -33,10 +32,7 @@ public final class ElectronConfig {
                 String line = reader.readLine();
 
                 while (line != null) {
-                    if (!line.startsWith("//") && !line.contains(".required")) {
-                        ElectronConfig.SETTINGS.add(line);
-                        if (FabricLoader.getInstance().isDevelopmentEnvironment()) Constants.LOG.info(line);
-                    }
+                    if (!line.startsWith("//") && !line.contains(".required")) ElectronConfig.SETTINGS.add(line);
                     line = reader.readLine();
                 }
             }
