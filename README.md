@@ -41,3 +41,7 @@ For more advanced configuration, you can also put specific mixin files.
 - `io.github.racoondog.electron.mixin.tick`: Tick loop optimizations.
 - `io.github.racoondog.electron.mixin.tick.colors`: Disables rainbow color updates when not in use.
 - `io.github.racoondog.electron.mixin.tick.blockiterator`: Replaces the BlockIterator with an optimized version.
+
+## Electron 1.19.2 support when?
+
+Never. Electron makes so many changes to Meteor client's code that it makes it really hard to maintain. Doing so with multiple versions at the same time is just not feasible. End of story.
