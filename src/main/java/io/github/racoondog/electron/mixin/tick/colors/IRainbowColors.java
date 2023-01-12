@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-@Mixin(RainbowColors.class)
+@Mixin(value = RainbowColors.class, remap = false)
 public interface IRainbowColors {
     @Accessor
     static List<Setting<List<SettingColor>>> getColorListSettings() {

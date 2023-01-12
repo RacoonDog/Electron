@@ -1,8 +1,12 @@
 package io.github.racoondog.electron.utils;
 
+import io.github.racoondog.electron.config.ElectronConfig;
+import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.events.world.TickEvent;
+import meteordevelopment.meteorclient.utils.PreInit;
 import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.utils.misc.Pool;
+import meteordevelopment.meteorclient.utils.world.BlockIterator;
 import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.orbit.EventPriority;
 import net.fabricmc.api.EnvType;
@@ -20,6 +24,12 @@ import java.util.function.BiConsumer;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
+/**
+ * TODO when committed to Meteor:
+ * In order to increase precision in some cases (such as {@link meteordevelopment.meteorclient.systems.modules.combat.CrystalAura}, make {@link BlockIterator#register(int, int, BiConsumer)} take doubles instead of integers.
+ * Internally, the {@link ChunkBlockIterator#hRadius} and {@link ChunkBlockIterator#vRadius} would still use ints using <code>(int) Math.ceil(radiusDouble)</>, but the {@link Callback} would use doubles for the distance calculation.
+ * This would allow {@link meteordevelopment.meteorclient.systems.modules.combat.CrystalAura} use the correct default radius of 4.5 instead of 5, which would remove the need for double checking the distance.
+ */
 @Environment(EnvType.CLIENT)
 public final class ChunkBlockIterator {
 
@@ -33,9 +43,19 @@ public final class ChunkBlockIterator {
 
     private static boolean disableCurrent;
 
+    @PreInit
+    public static void preInit() {
+        if (!ElectronConfig.isDisabled("io.github.racoondog.electron.mixin.tick.blockiterator.BlockIteratorMixin")) {
+            MeteorClient.EVENT_BUS.subscribe(ChunkBlockIterator.class);
+            MeteorClient.EVENT_BUS.unsubscribe(BlockIterator.class);
+        }
+    }
+
+    /* Iterator */
+
     @EventHandler(priority = EventPriority.LOWEST - 1)
     private static void onTick(TickEvent.Pre event) {
-        if (!Utils.canUpdate() || mc.world.isDebugWorld() || (hRadius == 0 && vRadius == 0)) return;
+        if (!Utils.canUpdate() || mc.world.isDebugWorld() || hRadius == 0 || vRadius == 0) return;
 
         int px = mc.player.getBlockX();
         int py = mc.player.getBlockY();
@@ -51,58 +71,13 @@ public final class ChunkBlockIterator {
         y1 = MathHelper.clamp(y1, mc.world.getBottomY(), y2);
         y2 = MathHelper.clamp(y2, y1, mc.world.getTopY());
 
-        loop:
-        for (int cx = x1 >> 4; cx <= x2 >> 4; cx++) {
-            for (int cz = z1 >> 4; cz <= z2 >> 4; cz++) {
+        int cx1 = x1 >> 4;
+        int cz1 = z1 >> 4;
+        int cx2 = x2 >> 4;
+        int cz2 = z2 >> 4;
 
-                WorldChunk chunk = mc.world.getChunk(cx, cz);
-
-                int chunkEdgeX = cx * 16;
-                int chunkEdgeZ = cz * 16;
-
-                int chunkX1 = Math.max(chunkEdgeX, x1);
-                int chunkZ1 = Math.max(chunkEdgeZ, z1);
-                int chunkX2 = Math.min(chunkEdgeX + 15, x2);
-                int chunkZ2 = Math.min(chunkEdgeZ + 15, z2);
-
-                for (int y = y1; y <= y2; y++) {
-                    int sIndex = chunk.getSectionIndex(y);
-                    if (sIndex < 0 || sIndex >= chunk.getSectionArray().length) continue;
-                    ChunkSection section = chunk.getSection(sIndex);
-                    if (section.isEmpty()) continue;
-
-                    int ey = y & 15;
-                    blockPos.setY(y);
-                    int dy = Math.abs(y - py);
-
-                    for (int x = chunkX1; x <= chunkX2; x++) {
-                        int ex = x & 15;
-                        blockPos.setX(x);
-                        int dx = Math.abs(x - px);
-
-                        for (int z = chunkZ1; z <= chunkZ2; z++) {
-                            blockPos.setZ(z);
-
-                            BlockState blockState = section.getBlockState(ex, ey, z & 15);
-                            int dz = Math.abs(z - pz);
-
-                            for (Iterator<Callback> it = callbacks.iterator(); it.hasNext(); ) {
-                                Callback callback = it.next();
-
-                                if (dx <= callback.hRadius && dy <= callback.vRadius && dz <= callback.hRadius) {
-                                    disableCurrent = false;
-                                    callback.function.accept(blockPos, blockState);
-                                    if (disableCurrent) {
-                                        it.remove();
-                                        if (callbacks.isEmpty()) break loop;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        if (cx1 == cx2 && cz1 == cz2) singleChunkIterator(cx1, cz1, x1, y1, z1, x2, y2, z2, px, py, pz);
+        else multiChunkIterator(cx1, cz1, cx2, cz2, x1, y1, z1, x2, y2, z2, px, py, pz);
 
         hRadius = 0;
         vRadius = 0;
@@ -112,6 +87,71 @@ public final class ChunkBlockIterator {
 
         for (Runnable callback : afterCallbacks) callback.run();
         afterCallbacks.clear();
+    }
+
+    private static void multiChunkIterator(int cx1, int cz1, int cx2, int cz2, int x1, int y1, int z1, int x2, int y2, int z2, int px, int py, int pz) {
+        for (int cx = cx1; cx <= cx2; cx++) {
+            int chunkEdgeX = cx << 4;
+            int chunkX1 = Math.max(chunkEdgeX, x1);
+            int chunkX2 = Math.min(chunkEdgeX + 15, x2);
+
+            for (int cz = cz1; cz <= cz2; cz++) {
+                int chunkEdgeZ = cz << 4;
+                int chunkZ1 = Math.max(chunkEdgeZ, z1);
+                int chunkZ2 = Math.min(chunkEdgeZ + 15, z2);
+
+                singleChunkIterator(cx, cz, chunkX1, y1, chunkZ1, chunkX2, y2, chunkZ2, px, py, pz);
+            }
+        }
+    }
+
+    private static void singleChunkIterator(int cx, int cz, int x1, int y1, int z1, int x2, int y2, int z2, int px, int py, int pz) {
+        WorldChunk chunk = mc.world.getChunk(cx, cz);
+
+        for (int y = y1; y <= y2; y++) {
+            int sIndex = chunk.getSectionIndex(y);
+            if (sIndex < 0 || sIndex >= chunk.getSectionArray().length) continue;
+            ChunkSection section = chunk.getSection(sIndex);
+            if (section.isEmpty()) continue;
+
+            int ey = y & 15;
+            blockPos.setY(y);
+            int dy = Math.abs(y - py);
+
+            for (int x = x1; x <= x2; x++) {
+                int ex = x & 15;
+                blockPos.setX(x);
+                int dx = Math.abs(x - px);
+
+                for (int z = z1; z <= z2; z++) {
+                    blockPos.setZ(z);
+
+                    BlockState blockState = section.getBlockState(ex, ey, z & 15);
+                    int dz = Math.abs(z - pz);
+
+                    if (callbacks(dx, dy, dz, blockState)) return;
+                }
+            }
+        }
+    }
+
+    /* Callbacks */
+
+    private static boolean callbacks(int dx, int dy, int dz, BlockState blockState) {
+        for (Iterator<Callback> it = callbacks.iterator(); it.hasNext(); ) {
+            Callback callback = it.next();
+
+            if (dx <= callback.hRadius && dy <= callback.vRadius && dz <= callback.hRadius) {
+                disableCurrent = false;
+                callback.function.accept(blockPos, blockState);
+                if (disableCurrent) {
+                    it.remove();
+                    if (callbacks.isEmpty()) return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     public static void register(int horizontalRadius, int verticalRadius, BiConsumer<BlockPos, BlockState> function) {

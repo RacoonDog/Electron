@@ -32,9 +32,10 @@ public abstract class BlockIteratorMixin {
      *
      * @author Crosby
      */
-    @Inject(method = "register", at = @At("HEAD"))
+    @Inject(method = "register", at = @At("HEAD"), cancellable = true)
     private static void replaceRegister(int horizontalRadius, int verticalRadius, BiConsumer<BlockPos, BlockState> function, CallbackInfo ci) {
         ChunkBlockIterator.register(horizontalRadius, verticalRadius, function);
+        ci.cancel();
     }
 
     /**

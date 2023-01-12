@@ -3,6 +3,7 @@ package io.github.racoondog.electron.config;
 import io.github.racoondog.electron.utils.Constants;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,7 +24,7 @@ public final class ElectronConfig {
                 Constants.LOG.info("Generating config file...");
                 try (var writer = Files.newBufferedWriter(cfg, StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
                     writer.write("//See https://github.com/RacoonDog/Electron for a list of settings.\n");
-                    writer.write("io.github.racoondog.electron.mixin.dev.profiler\n");
+                    if (!FabricLoader.getInstance().isDevelopmentEnvironment()) writer.write("io.github.racoondog.electron.mixin.dev.profiler\n");
                     writer.write("io.github.racoondog.electron.mixin.starscript.section\n");
                 }
             }
