@@ -24,7 +24,7 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
 @Environment(EnvType.CLIENT)
 @Mixin(value = LambdaListener.class, remap = false)
 public abstract class LambdaListenerMixin {
-    @Unique private static final List<Class<?>> ALLOWED_EVENTS = Lists.newArrayList(TickEvent.Pre.class, TickEvent.Post.class, Render2DEvent.class, Render3DEvent.class);
+    @Unique private static final List<Class<?>> PROFILED_EVENTS = Lists.newArrayList(TickEvent.Pre.class, TickEvent.Post.class, Render2DEvent.class, Render3DEvent.class);
 
     @Shadow @Final private Class<?> target;
 
@@ -32,7 +32,7 @@ public abstract class LambdaListenerMixin {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void saveId(LambdaListener.Factory factory, Class<?> klass, Object object, Method method, CallbackInfo ci) {
-        if (ALLOWED_EVENTS.contains(target)) identifier = MeteorClient.MOD_ID + "_" + method.getDeclaringClass().getSimpleName() + "_" + method.getName();
+        if (PROFILED_EVENTS.contains(target)) identifier = MeteorClient.MOD_ID + "_" + method.getDeclaringClass().getSimpleName() + "_" + method.getName();
     }
 
     @Inject(method = "call", at = @At("HEAD"))

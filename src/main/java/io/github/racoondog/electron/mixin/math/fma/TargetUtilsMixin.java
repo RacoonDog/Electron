@@ -6,6 +6,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import org.joml.Math;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
@@ -16,7 +17,7 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
 public abstract class TargetUtilsMixin {
     /**
      * @author Crosby
-     * @reason Math.FMA()
+     * @reason FMA
      * @since 0.3.0
      */
     @Overwrite
