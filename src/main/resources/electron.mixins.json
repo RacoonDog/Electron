@@ -8,7 +8,6 @@
     "PacketMineMixin",
     "TargetUtilsMixin",
     "dev.profiler.LambdaListenerMixin",
-    "loading.ReflectInitMixin",
     "math.fma.TargetUtilsMixin",
     "render.culling.LightOverlayMixin",
     "required.CrashReportMixin",

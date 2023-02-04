@@ -29,7 +29,6 @@ Put any of these settings in the `meteor-client/electron.txt` file to disable th
 For more advanced configuration, you can also put specific mixin files.
 - `io.github.racoondog.electron.mixin.dev`: Enables various developer tools.
 - `io.github.racoondog.electron.mixin.dev.profiler`: Enables profiling tools.
-- `io.github.racoondog.electron.mixin.loading`: Loading time optimizations.
 - `io.github.racoondog.electron.mixin.math`: Math-related optimizations.
 - `io.github.racoondog.electron.mixin.math.fma`: Uses optimized FMA instructions in place of some mathematical operations.
 - `io.github.racoondog.electron.mixin.render`: Rendering optimizations.
