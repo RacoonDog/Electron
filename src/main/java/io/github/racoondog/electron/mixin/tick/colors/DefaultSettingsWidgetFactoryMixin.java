@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Environment(EnvType.CLIENT)
 @Mixin(value = DefaultSettingsWidgetFactory.class, remap = false)
 public abstract class DefaultSettingsWidgetFactoryMixin {
-    @Redirect(method = "lambda$colorListWFill$74", at = @At(value = "INVOKE", target = "Lmeteordevelopment/meteorclient/settings/ColorSetting;set(Ljava/lang/Object;)Z"))
+    @Redirect(method = "*", at = @At(value = "INVOKE", target = "Lmeteordevelopment/meteorclient/settings/ColorSetting;set(Ljava/lang/Object;)Z"))
     private boolean updateRainbowColorsUtils(ColorSetting instance, Object o) {
         ((IColorSetting) instance).setDoNotUpdate(true);
         return instance.set((SettingColor) o);

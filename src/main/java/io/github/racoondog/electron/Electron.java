@@ -9,10 +9,9 @@ import net.fabricmc.loader.api.FabricLoader;
 
 @Environment(EnvType.CLIENT)
 public final class Electron extends MeteorAddon {
-    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @Override
     public void onInitialize() {
-        final String versionString = FabricLoader.getInstance().getModContainer("electron").get().getMetadata().getVersion().getFriendlyString();
+        final String versionString = FabricLoader.getInstance().getModContainer("electron").orElseThrow().getMetadata().getVersion().getFriendlyString();
         TitleScreenCredits.modifyAddonCredit(this, credit -> {
             credit.sections.add(1, new TitleScreenCredits.Section(" (", TitleScreenCredits.GRAY));
             credit.sections.add(2, new TitleScreenCredits.Section(versionString, TitleScreenCredits.WHITE));

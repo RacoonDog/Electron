@@ -13,8 +13,8 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 @Mixin(value = RainbowColors.class, remap = false)
 public interface IRainbowColors {
-    @Accessor
-    static List<Setting<List<SettingColor>>> getColorListSettings() {
+    @Accessor("colorListSettings")
+    static List<Setting<List<SettingColor>>> electron$getColorListSettings() {
         throw new AssertionError();
     }
 }

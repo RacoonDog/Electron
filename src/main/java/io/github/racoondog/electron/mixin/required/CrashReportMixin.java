@@ -21,7 +21,7 @@ public abstract class CrashReportMixin {
         if (ElectronConfig.SETTINGS.isEmpty()) return;
 
         sb.append("\n\n-- Electron --\n\n");
-        sb.append("Disabled mixins:");
+        sb.append("Disabled mixins:\n");
 
         for (var setting : ElectronConfig.SETTINGS) {
             sb.append("- ").append(setting).append('\n');

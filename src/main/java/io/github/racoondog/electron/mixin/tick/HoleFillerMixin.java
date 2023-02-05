@@ -14,7 +14,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import org.joml.Math;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -53,7 +52,7 @@ public abstract class HoleFillerMixin {
         y -= pos.getY() + ((feet) ? 1 : 0.5);
         z -= pos.getZ() + 0.5;
 
-        return Math.sqrt(Math.fma(x, x, Math.fma(y, y, z * z)));
+        return Math.sqrt(org.joml.Math.fma(x, x, org.joml.Math.fma(y, y, z * z)));
     }
 
     /**

@@ -35,7 +35,7 @@ public final class RainbowColorsUtils {
     }
 
     private static boolean areColorListsRainbow() {
-        for (var setting : IRainbowColors.getColorListSettings()) {
+        for (var setting : IRainbowColors.electron$getColorListSettings()) {
             if (isColorListRainbow(setting)) return true;
         }
         return false;

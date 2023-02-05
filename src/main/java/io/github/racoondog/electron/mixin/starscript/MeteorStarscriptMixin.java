@@ -25,7 +25,7 @@ public abstract class MeteorStarscriptMixin {
     @Unique private static final Formatter FORMATTER = new Formatter(SB);
 
     /**
-     * Since Minecraft-related Starscript *should* only ever be called from the main thread, we can reuse a static {@link StringBuilder} and {@link Formatter} for speeeeeeeed.
+     * Since Meteor-related Starscript *should* only ever be called from the main thread, we can reuse a static {@link StringBuilder} and {@link Formatter} for speeeeeeeed.
      * @author Crosby
      * @since 0.3.5
      */
@@ -36,7 +36,7 @@ public abstract class MeteorStarscriptMixin {
 
     /**
      * @author Crosby
-     * @reason Formatter + round beforehand +
+     * @reason Formatter + round beforehand
      * @since 0.3.5
      */
     @Overwrite

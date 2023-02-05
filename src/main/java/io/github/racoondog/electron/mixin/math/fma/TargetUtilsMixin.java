@@ -6,7 +6,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import org.joml.Math;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
@@ -17,7 +16,7 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
 public abstract class TargetUtilsMixin {
     /**
      * @author Crosby
-     * @reason FMA
+     * @reason FMA + unneeded SQRT
      * @since 0.3.0
      */
     @Overwrite
@@ -35,6 +34,6 @@ public abstract class TargetUtilsMixin {
         double e1pitch = Math.abs(Rotations.getPitch(e1) - mc.player.getPitch());
         double e2pitch = Math.abs(Rotations.getPitch(e2) - mc.player.getPitch());
 
-        return Double.compare(Math.sqrt(Math.fma(e1yaw, e1yaw, e1pitch * e1pitch)), Math.sqrt(Math.fma(e2yaw, e2yaw, e2pitch * e2pitch)));
+        return Double.compare(org.joml.Math.fma(e1yaw, e1yaw, e1pitch * e1pitch), org.joml.Math.fma(e2yaw, e2yaw, e2pitch * e2pitch));
     }
 }

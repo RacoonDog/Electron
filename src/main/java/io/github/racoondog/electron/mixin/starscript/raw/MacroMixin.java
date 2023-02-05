@@ -21,7 +21,7 @@ public abstract class MacroMixin {
      * @author Crosby
      * @since 0.2.4
      */
-    @Redirect(method = "onAction", at = @At(value = "INVOKE", target = "Lmeteordevelopment/meteorclient/utils/misc/MeteorStarscript;run(Lmeteordevelopment/starscript/Script;)Ljava/lang/String;"))
+    @Redirect(method = "onAction()Z", at = @At(value = "INVOKE", target = "Lmeteordevelopment/meteorclient/utils/misc/MeteorStarscript;run(Lmeteordevelopment/starscript/Script;)Ljava/lang/String;"))
     private String useStringBuilder(Script script) {
         return StarscriptUtils.runRawString(script, stringBuilder);
     }
