@@ -3,6 +3,11 @@
   "package": "io.github.racoondog.electron.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "InGameHudMixin",
+    "TextRenderer$DrawerMixin",
+    "meteor.HudMixin",
+    "meteor.SystemsMixin",
+    "meteor.ToggleCommandMixin"
   ],
   "injectors": {
     "defaultRequire": 1

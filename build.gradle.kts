@@ -17,6 +17,10 @@ repositories {
         name = "meteor-maven-snapshots"
         url = uri("https://maven.meteordev.org/snapshots")
     }
+    maven {
+        name = "bawnorton"
+        url = uri("https://maven.bawnorton.com/releases")
+    }
 }
 
 dependencies {
@@ -27,6 +31,17 @@ dependencies {
 
     // Meteor
     modImplementation("meteordevelopment:meteor-client:${properties["minecraft_version"] as String}-SNAPSHOT")
+
+    // MixinSquared
+    val mixinSquared = "com.github.bawnorton.mixinsquared:mixinsquared-fabric:0.2.0"
+    include(mixinSquared)
+    implementation(mixinSquared)
+    annotationProcessor(mixinSquared)
+
+    // Reflect
+    val reflect = "net.lenni0451:Reflect:1.5.0"
+    include(reflect)
+    implementation(reflect)
 }
 
 tasks {
