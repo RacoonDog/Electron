@@ -3,13 +3,11 @@
   "id": "electron",
   "version": "${version}",
   "name": "Electron",
-  "description": "Meteor Client Performance Optimizations.",
+  "description": "Experimental performance improvements for Meteor Client.",
   "authors": [ "Crosby" ],
   "contact": {
-    "repo": "https://github.com/RacoonDog/Electron",
     "issues": "https://github.com/RacoonDog/Electron/issues",
-    "sources": "https://github.com/RacoonDog/Electron",
-    "discord": "https://discord.gg/4RBmBCFSTc"
+    "sources": "https://github.com/RacoonDog/Electron"
   },
   "license": "ARR",
   "icon": "assets/electron/icon.png",
@@ -24,15 +22,12 @@
   ],
   "custom": {
     "meteor-client:color": "255,201,58",
-    "modmenu": {
-      "badges": [ "meteor" ]
-    }
+    "meteor-client:commit": "${commit}"
   },
   "depends": {
-    "java": ">=17",
-    "fabricloader": ">=0.12",
-    "minecraft": ">=${mc_version}",
-    "meteor-shared-addon-utils": "*",
+    "java": ">=21",
+    "fabricloader": ">=0.15",
+    "minecraft": "~1.21",
     "meteor-client": "*"
   }
 }
