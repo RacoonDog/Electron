@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "client": [
     "InGameHudMixin",
+    "LightmapTextureManagerMixin",
     "TextRenderer$DrawerMixin",
     "meteor.HudMixin",
     "meteor.SystemsMixin",
