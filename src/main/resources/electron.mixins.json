@@ -10,7 +10,8 @@
     "meteor.HudTab$HudScreenMixin",
     "meteor.ModulesMixin",
     "meteor.SystemsMixin",
-    "meteor.ToggleCommandMixin"
+    "meteor.ToggleCommandMixin",
+    "orbit.EventBusMixin"
   ],
   "injectors": {
     "defaultRequire": 1
