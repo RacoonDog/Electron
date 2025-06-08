@@ -7,6 +7,8 @@
     "LightmapTextureManagerMixin",
     "TextRenderer$DrawerMixin",
     "meteor.HudMixin",
+    "meteor.HudTab$HudScreenMixin",
+    "meteor.ModulesMixin",
     "meteor.SystemsMixin",
     "meteor.ToggleCommandMixin"
   ],

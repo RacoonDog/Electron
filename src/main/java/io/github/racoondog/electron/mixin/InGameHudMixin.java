@@ -2,7 +2,6 @@ package io.github.racoondog.electron.mixin;
 
 import com.bawnorton.mixinsquared.TargetHandler;
 import io.github.racoondog.electron.orbit.Invokers;
-import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.events.render.Render2DEvent;
 import meteordevelopment.orbit.IEventBus;
 import net.minecraft.client.gui.DrawContext;
